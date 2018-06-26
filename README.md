@@ -29,7 +29,6 @@
 - Redis 2.6.x
 - Postgresql 9.1.x
 - ReactJS 16.4.x
-- etc
 
 ## Development
 
