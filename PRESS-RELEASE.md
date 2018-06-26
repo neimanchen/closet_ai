@@ -69,5 +69,3 @@ Once the project moves into development, the press release can be used as a touc
 
 
 
-
-
