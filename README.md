@@ -1,4 +1,4 @@
-## ClosetAI
+# ClosetAI
 
 > Plan your wardrobe with ClosetAI
 
