@@ -1,4 +1,4 @@
-# Project Name #
+# ClosetAI #
 
 <!--
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -65,6 +65,4 @@ Once the project moves into development, the press release can be used as a touc
   > Wrap it up and give pointers where the reader should go next.
 
   Don’t let another day pass by, give ClosetAI a try!
-
-
 

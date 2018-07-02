@@ -1,4 +1,4 @@
-## ClosetAI
+# ClosetAI
 
 > Plan your wardrobe with ClosetAI
 
@@ -50,3 +50,5 @@ View the project roadmap [here](https://github.com/shelfExpress/closet_ai/issues
 ## Contributing
 
 See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
+
+
