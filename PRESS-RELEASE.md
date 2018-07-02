@@ -66,5 +66,3 @@ Once the project moves into development, the press release can be used as a touc
 
   Don’t let another day pass by, give ClosetAI a try!
 
-
-
