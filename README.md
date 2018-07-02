@@ -28,7 +28,7 @@
 - Express 4.163.x
 - Redis 2.6.x
 - Postgresql 9.1.x
-- ReactJS
+- ReactJS 16.4.x
 
 ## Development
 
