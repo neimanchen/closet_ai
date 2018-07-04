@@ -1,12 +1,12 @@
-# Project Name
+# ClosetAI
 
-> Pithy project description
+> Plan your wardrobe with ClosetAI
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Sarkhan Koshkarli
+  - __Scrum Master__: Neiman Chen
+  - __Development Team Members__: Happy Situ, Hubert Nimitanakit
 
 ## Table of Contents
 
@@ -24,10 +24,11 @@
 
 ## Requirements
 
-- Node 0.10.x
+- Node 8.9.x
+- Express 4.163.x
 - Redis 2.6.x
 - Postgresql 9.1.x
-- etc
+- ReactJS 16.4.x
 - etc
 
 ## Development
@@ -36,7 +37,7 @@
 
 From within the root directory:
 
-```sh
+```
 sudo npm install -g bower
 npm install
 bower install
@@ -44,9 +45,11 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/shelfExpress/closet_ai/issues)
 
 
 ## Contributing
 
 See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
+
+
