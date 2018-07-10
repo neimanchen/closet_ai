@@ -7,8 +7,9 @@ var SERVER_DIR = path.join(__dirname, '/src/server');
 var DIST_DIR = path.join(__dirname, '/dist');
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
-  template: "./src/client/index.html",
-  filename: "./index.html"
+  filename: "./index.html",
+  title: "Closet AI",
+  template: './src/client/index.html'
 });
 
 const moduleObj = {
@@ -17,7 +18,10 @@ const moduleObj = {
       test: /\.jsx$/,
       exclude: /node_modules/,
       use: {
-        loader: "babel-loader"
+        loader: "babel-loader",
+        query: {
+          presets: ['react', 'es2015']
+        }
       }
     },
     {
@@ -37,7 +41,7 @@ const client = {
     publicPath: '/'
   },
   module: moduleObj,
-  plugins: [htmlWebpackPlugin]
+ plugins: [htmlWebpackPlugin]
 };
 
 const server = {
@@ -48,14 +52,14 @@ const server = {
   target: 'node',
   output: {
     filename: 'serverBundle.js',
-    path: DIST_DIR
+    path: DIST_DIR,
+    publicPath: '/'
   },
   module: moduleObj,
   externals: [nodeExternals()],
   devServer: {
     hot: true,
-  },
-  plugins: [htmlWebpackPlugin]
+  }
 };
 
 
