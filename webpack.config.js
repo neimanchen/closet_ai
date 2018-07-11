@@ -15,12 +15,12 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
 const moduleObj = {
   rules: [
     {
-      test: /\.jsx$/,
+      test: /\.jsx?$/,
       exclude: /node_modules/,
       use: {
         loader: "babel-loader",
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'env']
         }
       }
     },
@@ -47,7 +47,7 @@ const client = {
 const server = {
   mode: 'development',
   entry: {
-    'server': `${SERVER_DIR}/index.jsx`,
+    'server': `${SERVER_DIR}/index.js`,
   },
   target: 'node',
   output: {
