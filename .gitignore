@@ -65,7 +65,7 @@ client/dist/*
 !client/dist/index.html
 
 # config files
-server/config.
+server/config.js
 
 # Node
 node_modules/

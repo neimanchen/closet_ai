@@ -2,15 +2,15 @@
   "name": "closet_ai",
   "version": "1.0.0",
   "description": "Virtual Closet, outfit recommender and planner.",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "build-babel": "npm run build-server && npm run build-client",
     "build-server": "babel src/server --out-dir ./dist",
     "build-client": "babel src/client --copy-files --out-dir ./dist/public",
     "test": "jest ./test",
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon src/server/index.jsx",
-    "server-prod": "NODE_ENV=production node src/server/index.jsx",
+    "server-dev": "nodemon src/server/index.js",
+    "server-prod": "NODE_ENV=production node src/server/index.js",
     "build": "webpack --mode production"
   },
   "repository": {
@@ -30,9 +30,12 @@
   },
   "homepage": "https://github.com/shelfExpress/closet_ai#readme",
   "dependencies": {
+    "aws-sdk": "^2.272.1",
     "babel-loader": "^7.1.4",
     "chai": "^4.1.2",
     "express": "^4.16.3",
+    "multer": "^1.3.1",
+    "multer-s3": "^2.7.0",
     "nodemon-webpack-plugin": "^3.0.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
