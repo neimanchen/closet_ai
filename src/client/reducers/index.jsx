@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
-import { addItem, theDefaultReducer } from './addItem.js'
+import { combineReducers } from 'redux';
+import { myClosetReducer as closet, theDefaultReducer } from './myClosetReducer.js';
 
 const reducers = combineReducers({
-  addItem,
+  closet,
   theDefaultReducer
 });
 

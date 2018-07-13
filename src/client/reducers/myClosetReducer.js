@@ -1,24 +1,18 @@
-import {ADD_ITEM} from '../actions/addItem';
+import {CURRENT_MENU_ITEM} from '../actions/myClosetActions';
 
 // TODO: this is temporary, need to figure out what the default state will be
 const initialState = {
-  items: [ {a: 1, b: 2}]
+  currentMenuItem: 'MyCloset'
 };
 
-function getUpdatedItems(items, action) {
-  var updatedItems = items;
-  updatedItems.push(action.item);
-  return updatedItems;
-}
-
-export function addItem(state = initialState, action) {
+export function myClosetReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_ITEM:
+    case CURRENT_MENU_ITEM:
       return Object.assign({}, state, {
-        items: getUpdatedItems(state.items, action)
+        currentMenuItem: action.item
       });
     default:
-      return state
+      return state;
   }
 }
 

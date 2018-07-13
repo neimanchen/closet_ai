@@ -1,10 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers/index.jsx';
 import MyCloset from './components/MyCloset.jsx';
 import { Provider } from 'react-redux';
-const store = createStore(reducers);
+
+const middlewares = [];
+
+if (process.env.NODE_ENV === `development`) {
+  const { logger } = require(`redux-logger`);
+
+  middlewares.push(logger);
+}
+
+const store = createStore(
+  reducers,
+  applyMiddleware(...middlewares)
+);
 
 import {
   BrowserRouter as Router,
