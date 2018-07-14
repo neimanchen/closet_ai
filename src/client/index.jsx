@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers/index.jsx';
 import MyCloset from './components/MyCloset.jsx';
+import ClosetBoard from './components/ClosetBoard.jsx';
 import { Provider } from 'react-redux';
 
 const middlewares = [];
@@ -36,6 +37,7 @@ class App extends React.Component {
           <Provider store={store}>
           <div className="content container">
             <Route path="/mycloset" component={MyCloset} store={store}/>
+            <Route path="/closetboard" component={ClosetBoard} store={store}/>
           </div>
           </Provider>
         </Router>

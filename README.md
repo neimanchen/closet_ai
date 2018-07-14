@@ -43,6 +43,23 @@ npm install
 bower install
 ```
 
+Get an [AccuWeather developer key](https://www.developer.accuweather.com/).
+
+In the terminal where you want to run the server, run 
+```
+export ACCUWEATHER_KEY=YOURKEYHERE
+```
+
+To start the server, run
+```
+npm run server-dev
+```
+
+In another terminal, run
+```
+npm run react-dev
+```
+
 ### Roadmap
 
 View the project roadmap [here](https://github.com/shelfExpress/closet_ai/issues)
