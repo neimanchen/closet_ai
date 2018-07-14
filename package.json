@@ -35,13 +35,17 @@
     "express": "^4.16.3",
     "multer": "^1.3.1",
     "multer-s3": "^2.7.0",
+    "nodemon-webpack-plugin": "^3.0.1",
+    "pg": "^7.4.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
-    "semantic-ui-react": "^0.82.0"
+    "semantic-ui-react": "^0.82.0",
+    "sequelize": "^4.38.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

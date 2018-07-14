@@ -10,6 +10,8 @@ var multer = require('multer');
 var multerS3 = require('multer-s3');
 const CLOSET_AI_BUCKET = 'closet.test'
 const S3_API_VER = '2006-03-01';
+var db = require('../database');
+
 var app = express();
 
 var s3 = new AWS.S3({
@@ -60,8 +62,27 @@ function sendWeather(locationKey, res) {
     });
 }
 
-
 app.use(express.static(__dirname + '../../../dist'));
+
+app.get('/filltestdata', (req, res) => {
+  db.createDummyData();
+  res.status(200).end('Created Data')
+});
+
+app.get('/cleartables', (req, res) => {
+  db.clearTables();
+  res.status(200).end('Tables clear, but still exist')
+});
+
+app.get('/dropdb', (req, res) => {
+  db.dropTables();
+  res.status(200).end('Tables deleted, restart server to recreate')
+});
+
+app.get('/createdb', (req, res) => {
+  db.createDB();
+  res.status(200).end('Tables created')
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname + '../../../dist/index.html'));
