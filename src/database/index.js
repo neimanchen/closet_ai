@@ -158,8 +158,8 @@ Outfit.belongsToMany(Item, {
 
 // promise chain is required to ensure tables are created in the correct
 // sequence so that associations can be set up properly.
-// tables should be sync'd in the following order: category, item, calendar, outfit, closet, user, style, season,  outfits_items
-Category.sync().then(() => Item.sync().then(() => Calendar.sync().then(() => Outfit.sync().then(() => Closet.sync().then(() => User.sync().then(() => Style.sync().then(() => Season.sync().then(() => OutfitItem.sync().then(() => StyleSeason.sync())))))))));
+// tables should be sync'd in the following order: category, user, closet, item, calendar, outfit, style, season, outfits_items, styles_seasons
+Category.sync().then(() => User.sync().then(() => Closet.sync().then(() => Item.sync().then(() => Calendar.sync().then(() => Outfit.sync().then(() => Style.sync().then(() => Season.sync().then(() => OutfitItem.sync().then(() => StyleSeason.sync())))))))));
 
 const dbHelpers = {
   clearTables: () => {
@@ -182,7 +182,7 @@ const dbHelpers = {
   },
 
   createDB: () => {
-    Category.sync().then(() => Item.sync().then(() => Calendar.sync().then(() => Outfit.sync().then(() => Closet.sync().then(() => User.sync().then(() => Style.sync().then(() => Season.sync().then(() => OutfitItem.sync().then(() => StyleSeason.sync())))))))));
+    Category.sync().then(() => User.sync().then(() => Closet.sync().then(() => Item.sync().then(() => Calendar.sync().then(() => Outfit.sync().then(() => Style.sync().then(() => Season.sync().then(() => OutfitItem.sync().then(() => StyleSeason.sync())))))))));
   }
 }
 
