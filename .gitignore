@@ -72,6 +72,8 @@ node_modules/
 
 # Webstorm
 .idea/
+.idea/jsLinters/jshint.xml
 
 # Project
 dist/
+src/server/config.js
