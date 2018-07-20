@@ -2,10 +2,11 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateWeather } from '../actions/closetBoardActions';
+import { updateWeather } from '../../actions/closetBoardActions';
 import Axios from 'axios';
+import { Segment } from 'semantic-ui-react';
 
-export class ClosetBoard extends React.Component {
+export class Weather extends React.Component {
   constructor(props) {
     super(props);
     this.getWeather = this.getWeather.bind(this);
@@ -22,9 +23,10 @@ export class ClosetBoard extends React.Component {
   render() {
     return (
       <div>
-        <h1>Closet Board</h1>
-        <button onClick={this.getWeather}>Click to get weather</button>
-        <pre>{JSON.stringify(this.props.weather, null, 2)}</pre>
+        <Segment>
+          <button onClick={this.getWeather}>Click to get weather</button>
+          <pre>{JSON.stringify(this.props.weather, null, 2)}</pre>
+        </Segment>
       </div>
     );
   }
@@ -38,4 +40,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ updateWeather }, dispatch)
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ClosetBoard))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Weather))

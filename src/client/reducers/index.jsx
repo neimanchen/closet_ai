@@ -7,5 +7,4 @@ const reducers = combineReducers({
   closetBoard
 });
 
-
 export default reducers;

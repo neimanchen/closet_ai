@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers/index.jsx';
-import ClosetBoard from './components/ClosetBoard.jsx';
+import ClosetBoard from './components/ClosetBoard/ClosetBoard.jsx';
 import MyCloset from './components/MyCloset/MyCloset.jsx';
 import { Provider } from 'react-redux';
 

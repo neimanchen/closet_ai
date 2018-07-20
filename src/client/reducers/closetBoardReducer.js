@@ -14,5 +14,3 @@ export function closetBoardReducer(state = initialState, action) {
       return state;
   }
 }
-
-
