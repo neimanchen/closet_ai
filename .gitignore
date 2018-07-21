@@ -77,3 +77,4 @@ node_modules/
 # Project
 dist/
 src/server/config.js
+.jshint.xml

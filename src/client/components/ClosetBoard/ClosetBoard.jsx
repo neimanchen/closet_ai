@@ -37,8 +37,8 @@ export class ClosetBoard extends React.Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   weather: state.closetBoard.weather
-// });
+const mapStateToProps = state => ({
+  weather: state.closetBoard.weather
+});
 
 export default withRouter(connect(mapStateToProps)(ClosetBoard))

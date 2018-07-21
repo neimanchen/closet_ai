@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 export const MyClosetNavBar = (props) => (
-    <Menu vertical id="myCloset">
+    <Menu vertical id="myCloset" size="huge" stackable>
       <Menu.Item  >
         <Menu.Header>My Closet</Menu.Header>
         <Menu.Menu>

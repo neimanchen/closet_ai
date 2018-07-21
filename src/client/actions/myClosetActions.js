@@ -12,6 +12,8 @@ export const ITEM_BRANDS = 'ITEM_BRANDS';
 export const SELECTED_ITEM_BRANDS = 'SELECTED_ITEM_BRANDS';
 export const ITEM_CATEGORIES = 'ITEM_CATEGORIES';
 export const ITEM_SEASONS = 'ITEM_SEASONS';
+export const SELECTED_ITEMS = 'SELECTED_ITEMS';
+export const FILTERED_STATE = 'FILTERED_STATE';
 /*
  * action creators
  */
@@ -19,6 +21,20 @@ export function updateSelectedMenuItem(item) {
   return {
     type: CURRENT_MENU_ITEM,
     item
+  };
+}
+
+export function updateFilteredState(isFiltered) {
+  return {
+    type: FILTERED_STATE,
+    isFiltered
+  };
+}
+
+export function updateSelectedItems(items) {
+  return {
+    type: SELECTED_ITEMS,
+    items
   };
 }
 

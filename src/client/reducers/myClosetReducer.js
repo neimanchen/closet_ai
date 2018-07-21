@@ -1,5 +1,6 @@
 import {
   CURRENT_MENU_ITEM,
+  SELECTED_ITEMS,
   CLOSET_CATEGORIES,
   SELECTED_ITEM_CATEGORIES,
   OUTFIT_CATEGORIES,
@@ -9,8 +10,8 @@ import {
   SELECTED_ITEM_BRANDS,
   SELECTED_SEASONS,
   ITEM_CATEGORIES,
-  ITEM_SEASONS
-  } from '../actions/myClosetActions';
+  ITEM_SEASONS, FILTERED_STATE
+} from '../actions/myClosetActions';
 
 // TODO: this is temporary, need to figure out what the default state will be
 const initialState = {
@@ -24,7 +25,9 @@ const initialState = {
   selectedItemColors: [],
   selectedItemBrands: [],
   selectedItemCategories: [],
-  selectedSeasons: []
+  selectedSeasons: [],
+  selectedItems: [],
+  filteredState: false
 };
 
 export function myClosetReducer(state = initialState, action) {
@@ -73,6 +76,14 @@ export function myClosetReducer(state = initialState, action) {
       return Object.assign({}, state, {
         itemSeasons: action.seasons
       });
+    case SELECTED_ITEMS:
+      return Object.assign({}, state, {
+        selectedItems: action.items
+      });
+    case FILTERED_STATE:
+      return Object.assign({}, state, {
+        filteredState: action.isFiltered
+      })
     default:
       return state;
   }
