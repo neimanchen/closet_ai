@@ -8,6 +8,12 @@ const Header = () => {
     <Menu>
       <Menu.Item
         as={Link}
+        to='/closetboard'
+        name='Closet Board'
+        active={activeItem === '/closetboard'}
+      />
+      <Menu.Item
+        as={Link}
         to='/mycloset'
         name='My Closet'
         active={activeItem === '/mycloset'}

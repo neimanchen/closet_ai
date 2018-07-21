@@ -78,7 +78,7 @@ app.get('/api/barcode', (req, res) => {
   }
   Axios.get('https://www.barcodable.com/api/v1/upc/826218178634', config)
   .then((response) => {
-    res.send(response);
+    res.send(response.data);
   }).catch((error) => {
     res.status(500).send({error: 'There was an error getting your info from Barcodable'});
   });
