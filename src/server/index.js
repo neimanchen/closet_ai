@@ -6,6 +6,7 @@ const ACCUWEATHER_KEY = process.env.ACCUWEATHER_KEY;
 var AWS = require('aws-sdk');
 var accessKeyId = require('./config.js').keys.accessKeyId;
 var secretAccessKeyId = require('./config.js').keys.secretAccessKeyId;
+var barcodableKey = require('./config.js').keys.barcodable;
 var multer = require('multer');
 var multerS3 = require('multer-s3');
 const CLOSET_AI_BUCKET = 'closet.test'
@@ -13,6 +14,13 @@ const S3_API_VER = '2006-03-01';
 var db = require('../database');
 
 var app = express();
+
+app.use((res, req, next) => {
+  res.header('Access-Controll-Allow-Origin', '*');
+  res.header('Access-Controll-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Controll-Allow-Headers', 'Content-Type');
+  next();
+})
 
 var s3 = new AWS.S3({
   accessKeyId: accessKeyId,
@@ -61,6 +69,20 @@ function sendWeather(locationKey, res) {
       console.error(error);
     });
 }
+
+app.get('/api/barcode', (req, res) => {
+  var config = {
+    headers: {
+      Authorization: barcodableKey
+    }
+  }
+  Axios.get('https://www.barcodable.com/api/v1/upc/826218178634', config)
+  .then((response) => {
+    res.send(response);
+  }).catch((error) => {
+    res.status(500).send({error: 'There was an error getting your info from Barcodable'});
+  });
+})
 
 app.use(express.static(__dirname + '../../../dist'));
 

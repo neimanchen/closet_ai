@@ -6,6 +6,7 @@ import ClosetBoard from './components/ClosetBoard/ClosetBoard.jsx';
 import MyCloset from './components/MyCloset/MyCloset.jsx';
 import CreateOutfits from './components/CreateOutfits/CreateOutfits.jsx';
 import Header from './components/Header.jsx';
+import AddItem from './components/AddItem/AddItem.jsx';
 import { Provider } from 'react-redux';
 
 const middlewares = [];
@@ -52,6 +53,7 @@ class App extends React.Component {
               <DefaultLayout path="/mycloset" component={MyCloset} store={store} />
               <DefaultLayout path="/closetboard" component={ClosetBoard} store={store} />
               <DefaultLayout path="/createoutfits" component={CreateOutfits} store={store} />
+              <DefaultLayout path="/additem" component={AddItem} store={store} />
             </div>
           </Provider>
         </Router>
