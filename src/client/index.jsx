@@ -4,6 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers/index.jsx';
 import ClosetBoard from './components/ClosetBoard/ClosetBoard.jsx';
 import MyCloset from './components/MyCloset/MyCloset.jsx';
+import CreateOutfits from './components/CreateOutfits/CreateOutfits.jsx';
+import Header from './components/Header.jsx';
 import { Provider } from 'react-redux';
 
 const middlewares = [];
@@ -25,20 +27,32 @@ import {
   withRouter,
 } from 'react-router-dom';
 
+const DefaultLayout = ({ component: Component, ...rest }) => {
+  return (
+    <Route {...rest} render={matchProps => (
+      <div className="DefaultLayout">
+        <Header />
+        <Component {...matchProps} />
+      </div>
+    )} />
+  )
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  render () {
+  render() {
     return (
       <div>
         <Router>
           <Provider store={store}>
-          <div className="content container">
-            <Route path="/mycloset" component={MyCloset} store={store}/>
-            <Route path="/closetboard" component={ClosetBoard} store={store}/>
-          </div>
+            <div className="content container">
+              <DefaultLayout path="/mycloset" component={MyCloset} store={store} />
+              <DefaultLayout path="/closetboard" component={ClosetBoard} store={store} />
+              <DefaultLayout path="/createoutfits" component={CreateOutfits} store={store} />
+            </div>
           </Provider>
         </Router>
       </div>
@@ -47,4 +61,4 @@ class App extends React.Component {
 }
 
 const AppWithRouter = withRouter(App);
-ReactDOM.render(<App pathname={location.pathname}/>, document.getElementById('root'));
+ReactDOM.render(<App pathname={location.pathname} />, document.getElementById('root'));
