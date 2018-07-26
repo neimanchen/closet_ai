@@ -15,26 +15,18 @@ import {
 export class MyClosetItemsContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.filterItems=this.filterItems.bind(this);
   }
 
   componentDidMount() {
-    //get items from db based on filters
-    this.props.actions.updateFilteredState(false);
+    //get all items from state and update selected items
     this.props.actions.updateSelectedItems(allItemsExample);
   }
-
-  filterItems() {
-    //get items from db based on filters
-    this.props.actions.updateFilteredState(true);
-    this.props.actions.updateSelectedItems(filteredItemsExample);
-  }
-
+  
   render() {
     return (
       <div>
-        <MyClosetFilters filterItems={this.filterItems} />
-        <MyItems items={this.props.selectedItems || []} isFiltered={this.props.isFiltered} />
+        <MyClosetFilters items={this.props.selectedItems || []} />
+        <MyItems items={this.props.selectedItems || []} />
       </div>
     );
   }
@@ -43,13 +35,11 @@ export class MyClosetItemsContainer extends React.Component {
 const mapStateToProps = state => ({
   currentMenuItem: state.closet.currentMenuItem,
   selectedItems: state.closet.selectedItems,
-  isFiltered: state.closet.filteredState
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    updateSelectedItems,
-    updateFilteredState
+    updateSelectedItems
   }, dispatch)
 });
 

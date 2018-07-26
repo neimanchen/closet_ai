@@ -5,7 +5,13 @@ import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Grid, Button} from 'semantic-ui-react';
 import DropdownSearchSelection from '../DropdownSearch.jsx';
-import { itemColorsExample, itemBrandsExample, itemSeasonsExample, itemCategoriesExample } from "./ExampleData";
+import {
+  itemColorsExample,
+  itemBrandsExample,
+  itemSeasonsExample,
+  itemCategoriesExample,
+  filteredItemsExample
+} from "./ExampleData";
 import {
   updateItemColors,
   updateItemBrands,
@@ -15,7 +21,8 @@ import {
   updateSelectedColors,
   updateSelectedCategories,
   updateSelectedBrands,
-  updateFilteredState
+  updateFilteredState,
+  updateSelectedItems
 } from '../../actions/myClosetActions';
 
 
@@ -23,20 +30,46 @@ export class MyClosetFilters extends React.Component {
   constructor(props) {
     super(props);
     this.clearAllDropdowns=this.clearAllDropdowns.bind(this);
-    this.updateFilter = this.updateFilter.bind(this);
+    this.updateFilterStates=this.updateFilterStates.bind(this);
+    this.clearAllFilters = this.clearAllFilters.bind(this);
+    this.updateFilterOptions = this.updateFilterOptions.bind(this);
   }
 
   componentDidMount() {
     //MOCK DATA
+    this.clearAllFilters();
+    this.props.actions.updateFilteredState(false);
+    this.props.actions.updateSelectedItems(this.props.items);
+    this.updateFilterOptions();
+  }
 
+  componentDidUpdate() {
+    this.updateFilterStates();
+  }
+
+  updateFilterStates() {
+    if(this.props.selectedSeasons.length || this.props.selectedColors.length
+      || this.props.selectedBrands.length || this.props.selectedCategories.length) {
+      this.props.actions.updateFilteredState(true);
+      this.props.actions.updateSelectedItems(filteredItemsExample);
+    } else {
+      this.props.actions.updateFilteredState(false);
+      this.props.actions.updateSelectedItems(this.props.items);
+    }
+  }
+
+  clearAllFilters() {
+    this.props.actions.updateSelectedSeasons([]);
+    this.props.actions.updateSelectedBrands([]);
+    this.props.actions.updateSelectedColors([]);
+    this.props.actions.updateSelectedCategories([]);
+  }
+
+  updateFilterOptions() {
     this.props.actions.updateItemColors(itemColorsExample);
     this.props.actions.updateItemBrands(itemBrandsExample);
     this.props.actions.updateItemSeasons(itemSeasonsExample);
     this.props.actions.updateItemCategories(itemCategoriesExample);
-  }
-
-  updateFilter() {
-    this.props.actions.updateFilteredState(isFiltered);
   }
 
   clearAllDropdowns() {
@@ -45,6 +78,7 @@ export class MyClosetFilters extends React.Component {
     this.props.actions.updateSelectedColors([]);
     this.props.actions.updateSelectedCategories([]);
     this.props.actions.updateFilteredState(false);
+    this.props.actions.updateSelectedItems(this.props.items);
   }
 
   render(){
@@ -63,7 +97,6 @@ export class MyClosetFilters extends React.Component {
               text='Filter by season'
               onChange={(e, data) => {
                 this.props.actions.updateSelectedSeasons(data.value);
-                this.props.filterItems();
               }} />
           </Grid.Column>
           <Grid.Column mobile={16} computer={5} tablet={8} widescreen={3} largeScreen={3}>
@@ -74,7 +107,6 @@ export class MyClosetFilters extends React.Component {
               text='Filter by category'
               onChange={(e, data) => {
                 this.props.actions.updateSelectedCategories(data.value);
-                this.props.filterItems();
               }}/>
           </Grid.Column>
           <Grid.Column mobile={16} computer={5} tablet={8} widescreen={3} largeScreen={3}>
@@ -85,7 +117,6 @@ export class MyClosetFilters extends React.Component {
               text='Filter by color'
               onChange={(e, data) => {
                 this.props.actions.updateSelectedColors(data.value);
-                this.props.filterItems();
               }}/>
           </Grid.Column>
           <Grid.Column mobile={16} computer={5} tablet={8} widescreen={3} largeScreen={3}>
@@ -96,7 +127,6 @@ export class MyClosetFilters extends React.Component {
               text='Filter by brand'
               onChange={(e, data) => {
                 this.props.actions.updateSelectedBrands(data.value);
-                this.props.filterItems();
               }}/>
           </Grid.Column>
           <Grid.Column mobile={16} computer={2} tablet={2} widescreen={2} largeScreen={2} >
@@ -131,17 +161,22 @@ const mapDispatchToProps = dispatch => ({
     updateSelectedColors,
     updateSelectedCategories,
     updateSelectedBrands,
-    updateFilteredState
+    updateFilteredState,
+    updateSelectedItems
     },
     dispatch)
 });
 
 MyClosetFilters.propTypes  = {
-    brands: PropTypes.array,
-    colors: PropTypes.array,
-    categories: PropTypes.array,
-    seasons: PropTypes.array,
-    filterItems: PropTypes.func
-}
+  brands: PropTypes.array,
+  colors: PropTypes.array,
+  categories: PropTypes.array,
+  seasons: PropTypes.array,
+  items: PropTypes.array,
+  selectedSeasons: PropTypes.array,
+  selectedColors:PropTypes.array,
+  selectedBrands: PropTypes.array,
+  selectedCategories: PropTypes.array,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyClosetFilters));
