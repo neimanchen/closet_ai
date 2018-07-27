@@ -36,10 +36,12 @@
     "multer": "^1.3.1",
     "multer-s3": "^2.7.0",
     "pg": "^7.4.3",
+    "prop-types": "^15.6.2",
     "quagga": "^0.12.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
@@ -47,6 +49,7 @@
     "sequelize": "^4.38.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.0.0-beta.54",
     "babel-cli": "^6.26.0",
     "babel-jest": "^23.2.0",
     "babel-loader": "^7.1.5",
@@ -61,6 +64,7 @@
     "jest": "^23.2.0",
     "jest-enzyme": "^6.0.2",
     "nodemon-webpack-plugin": "^3.0.1",
+    "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.4.1",
     "redux-devtools": "^3.4.1",
     "redux-mock-store": "^1.5.3",

@@ -1,6 +1,11 @@
 /*
 * action types
 */
+
+export const UPDATE_WEATHER = 'UPDATE_WEATHER';
+export const UPDATE_RECENTLY_ADDED_OUTFITS = 'UPDATE_RECENTLY_ADDED_OUTFITS';
+export const UPDATE_RECOMMENDED_OUTFIT = 'UPDATE_RECOMMENDED_OUTFIT';
+export const UPDATE_UNWORN_ITEMS = 'UPDATE_UNWORN_ITEMS';
 export const WEATHER = 'WEATHER';
 export const LOCATION = 'LOCATION';
 
@@ -9,10 +14,32 @@ export const LOCATION = 'LOCATION';
  */
 export function updateWeather(forecast) {
   return {
-    type: WEATHER,
+    type: UPDATE_WEATHER,
     forecast
   };
 }
+
+export function updateRecentlyAddedOutfits(outfits) {
+  return {
+    type: UPDATE_RECENTLY_ADDED_OUTFITS,
+    outfits
+  };
+}
+
+export function updateRecommendedOutfit(outfit) {
+  return {
+    type: UPDATE_RECOMMENDED_OUTFIT,
+    outfit
+  };
+}
+
+export function updateUnwornItems(unwornItems) {
+  return {
+    type: UPDATE_UNWORN_ITEMS,
+    unwornItems
+  }
+}
+
 export function updateLocation(location) {
   return {
     type: LOCATION,
