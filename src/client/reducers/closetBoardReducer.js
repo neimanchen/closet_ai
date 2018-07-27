@@ -1,7 +1,8 @@
-import {WEATHER} from '../actions/closetBoardActions';
+import { WEATHER, LOCATION } from '../actions/closetBoardActions';
 
 const initialState = {
-  weather: 'Click the button to get weather, I put this in a button because there is only 25 calls a day'
+  weather: 'Allow geolcation and then click button that appears',
+  location: { error: 'Waiting for location...' }
 };
 
 export function closetBoardReducer(state = initialState, action) {
@@ -9,6 +10,10 @@ export function closetBoardReducer(state = initialState, action) {
     case WEATHER:
       return Object.assign({}, state, {
         weather: action.forecast
+      });
+    case LOCATION:
+      return Object.assign({}, state, {
+        location: action.location
       });
     default:
       return state;

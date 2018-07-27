@@ -45,9 +45,9 @@ bower install
 
 Get an [AccuWeather developer key](https://www.developer.accuweather.com/).
 
-In the terminal where you want to run the server, run 
+Add the following to keys in src/server/config.js:
 ```
-export ACCUWEATHER_KEY=YOURKEYHERE
+accuweatherKey: 'YOUR_KEY_HERE'
 ```
 
 To start the server, run
