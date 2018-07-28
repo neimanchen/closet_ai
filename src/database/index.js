@@ -6,7 +6,6 @@ if (process.env.DATABASE_URL !== undefined) {
     protocol: 'postgres',
     logging:  true
   })
-
 } else {
   var db = new Sequelize('closet_ai', 'closet_ai', 'shelfExpress', {
     host: 'localhost',
@@ -28,7 +27,7 @@ const User = db.define('users', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: { type: Sequelize.STRING },
   email: { type: Sequelize.STRING, unique: true },
-  salt: { type: Sequelize.STRING, allowNull: false },
+  hash: { type: Sequelize.STRING, allowNull: false },
   gender: { type: Sequelize.STRING },
   zip: { type: Sequelize.STRING },
   work_zip: { type: Sequelize.STRING },
@@ -77,6 +76,11 @@ const Season = db.define('seasons', {
   name: { type: Sequelize.STRING }
 });
 
+const Color = db.define('colors', {
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+  name: { type: Sequelize.STRING }
+})
+
 // join table
 const OutfitItem = db.define('outfits_items', {
   kind: { type: Sequelize.STRING }
@@ -106,6 +110,12 @@ Closet.hasMany(Item, {
 });
 
 Item.belongsTo(Closet);
+
+Color.hasMany(Item, {
+  foreignKey: {
+    allowNull: false
+  }
+})
 
 Category.hasMany(Item, {
   foreignKey: {
@@ -159,7 +169,7 @@ Outfit.belongsToMany(Item, {
 // promise chain is required to ensure tables are created in the correct
 // sequence so that associations can be set up properly.
 // tables should be sync'd in the following order: category, user, closet, item, calendar, outfit, style, season, outfits_items, styles_seasons
-Category.sync().then(() => User.sync().then(() => Closet.sync().then(() => Item.sync().then(() => Calendar.sync().then(() => Outfit.sync().then(() => Style.sync().then(() => Season.sync().then(() => OutfitItem.sync().then(() => StyleSeason.sync())))))))));
+Category.sync().then(() => User.sync().then(() => Closet.sync().then(()=> Color.sync().then(() => Item.sync().then(() => Calendar.sync().then(() => Outfit.sync().then(() => Style.sync().then(() => Season.sync().then(() => OutfitItem.sync().then(() => StyleSeason.sync()))))))))));
 
 const dbHelpers = {
   clearTables: () => {
@@ -179,6 +189,37 @@ const dbHelpers = {
   // to be restarted to recreate the database tables again
   dropTables: () => {
     return db.drop();
+  },
+
+  // generate fake data
+  genFakeData: () => {
+    let testUser = User.build({
+      email: 'hubert@testemail.com',
+      password: '$2a$10$flgD5OmkK2cwd/7CddCOW.Ujd30tqTb4r02bYVfYuI/GlwKw5gNt.'
+    });
+
+    let closet = Closet.build({
+      name: 'my closet',
+      isPrivate: 'true'
+    });
+
+    // generate items
+    // for (let i = 0; i < count; i++) {
+    //   let item = Item.build({
+    //     item_name: faker.random.word,
+    //     brand_name: faker.random.word,
+    //     color: {type: Sequelize.STRING},
+    //     size: {type: Sequelize.STRING},
+    //     sku: {type: Sequelize.STRING},
+    //     s3_public_url: {type: Sequelize.STRING},
+    //     price: {type: Sequelize.INTEGER},
+    //     last_worn_date: {type: Sequelize.DATE},
+    //     is_favorite: {type: Sequelize.BOOLEAN},
+    //     times_worn: {type: Sequelize.INTEGER},
+    //     max_times_before_wash: {type: Sequelize.INTEGER},
+    //     is_clean: {type: Sequelize.BOOLEAN}
+    //   });
+    // }
   },
 
   createDB: () => {
