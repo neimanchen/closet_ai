@@ -1,63 +1,75 @@
-export const allItemsExample = [
+export const allItemsExample =
   {
-    id: '1',
-    name: 'Cool Jacket',
-    brand: 'Levi\'s',
-    color: 'Black',
-    category: 'Jacket',
-    season: 'Winter',
-    url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
-  },
-  {
-    id: '2',
-    name: 'Another Cool Jacket',
-    brand: 'Salvatore Ferragamo',
-    color: 'Blue',
-    category: 'Jacket',
-    season: 'Summer',
-    url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
-  },
-  {
-    id: '3',
-    name: 'Very cool Jacket',
-    brand: 'Armani',
-    color: 'Yellow',
-    category: 'Jacket',
-    season: 'Spring',
-    url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
-  },
-  {
-    id: '4',
-    name: 'Cool Shirt',
-    brand: 'Levi\'s',
-    color: 'White',
-    category: 'Shirt',
-    season: 'Winter',
-    url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
-  },
-  {
-    id: '5',
-    name: 'Another Cool Shirt',
-    brand: 'Salvatore Ferragamo',
-    color: 'Purple',
-    category: 'Shirt',
-    season: 'Summer',
-    url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
-  },
-  {
-    id: '6',
-    name: 'Very cool Jacket',
-    brand: 'Armani',
-    color: 'Blue',
-    category: 'Shirt',
-    season: 'Spring',
-    url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
-  }];
+    Jacket: [{
+      id: '1',
+      name: 'Cool Jacket',
+      brand: 'Levi\'s',
+      color: 'Black',
+      category: 'Jacket',
+      season: 'Winter',
+      url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+    },
+    {
+      id: '2',
+      name: 'Another Cool Jacket',
+      brand: 'Salvatore Ferragamo',
+      color: 'Blue',
+      category: 'Jacket',
+      season: 'Summer',
+      url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+    },
+    {
+      id: '3',
+      name: 'Very cool Jacket',
+      brand: 'Armani',
+      color: 'Yellow',
+      category: 'Jacket',
+      season: 'Spring',
+      url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+    }],
+  Shirt: [
+    {
+      id: '4',
+      name: 'Cool Shirt',
+      brand: 'Levi\'s',
+      color: 'White',
+      category: 'Shirt',
+      season: 'Winter',
+      url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+    },
+    {
+      id: '5',
+      name: 'Another Cool Shirt',
+      brand: 'Salvatore Ferragamo',
+      color: 'Purple',
+      category: 'Shirt',
+      season: 'Summer',
+      url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+    },
+    {
+      id: '6',
+      name: 'Very cool Jacket',
+      brand: 'Armani',
+      color: 'Blue',
+      category: 'Shirt',
+      season: 'Spring',
+      url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+    }]
+  };
 
 export const filteredItemsExample = [
   {
     id: '7',
     name: 'Very cool Jacket',
+    brand: 'AE',
+    color: 'Blue',
+    category: 'Shirts',
+    season: 'Spring',
+    url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+  },
+  {
+    id: '7',
+    name: 'Very cool Jacket 2',
     brand: 'AE',
     color: 'Blue',
     category: 'Shirts',
