@@ -1,8 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Grid, Card } from 'semantic-ui-react';
 import MyClosetFilters from '../MyCloset/MyClosetFilters.jsx';
+import { updateSelectedOutfitItems } from '../../actions/createOutfitsActions.js'
 
 var items = [
   { name: 'item0', src: 'https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2017/12/04/thumb-img/1513712491220519733.jpg' },
@@ -19,9 +21,6 @@ var items = [
 export class CreateOutfits extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedItems: []
-    }
     this.onDrop = this.onDrop.bind(this);
   }
 
@@ -31,10 +30,10 @@ export class CreateOutfits extends React.Component {
 
   onDrop(event) {
     let id = event.dataTransfer.getData("id");
-    if (!this.state.selectedItems.includes(id)) {
-      var newSelectedItems = this.state.selectedItems.slice();
+    if (!this.props.selectedItems.includes(id)) {
+      var newSelectedItems = this.props.selectedItems.slice();
       newSelectedItems.push(id);
-      this.setState({ selectedItems: newSelectedItems });
+      this.props.actions.updateSelectedOutfitItems(newSelectedItems);
     }
   }
 
@@ -45,8 +44,8 @@ export class CreateOutfits extends React.Component {
           <Grid.Row>
             <Grid.Column width={6} stretched>
               <Card onDragOver={(e) => e.preventDefault()} onDrop={this.onDrop}>
-                {this.state.selectedItems.length === 0 ? 'Drag items here!' : this.state.selectedItems.map((item) => {
-                  return <img src={items[item].src} key={'item'+item}/>;
+                {this.props.selectedItems.length === 0 ? 'Drag items here!' : this.props.selectedItems.map((item) => {
+                  return <img src={items[item].src} key={'item' + item} />;
                 })}
               </Card>
             </Grid.Column>
@@ -95,12 +94,17 @@ export class CreateOutfits extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  //will need for redux later    
-});
+const mapStateToProps = state => {
+  return ({
+    selectedItems: state.createOutfits.selectedItems
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
-  //will need for redux later 
+  actions: bindActionCreators({
+    updateSelectedOutfitItems,
+  },
+    dispatch)
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateOutfits))

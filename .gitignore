@@ -78,3 +78,6 @@ node_modules/
 dist/
 src/server/config.js
 .jshint.xml
+
+#OS X
+.DS_Store
