@@ -10,8 +10,15 @@ import {
   itemCategoriesExample, itemColorsExample, itemSeasonsExample,
 } from './ExampleData';
 import {
-  updateItemBrands, updateItemCategories, updateItemColors, updateItemSeasons,
-  updateSelectedItems, updateFilteredState
+  updateItemBrands,
+  updateItemCategories,
+  updateItemColors,
+  updateItemSeasons,
+} from '../../actions/myFilterActions';
+
+import {
+  updateSelectedItems,
+  updateFilteredState
 } from '../../actions/myClosetActions';
 
 
@@ -70,14 +77,14 @@ export class MyClosetItemsContainer extends React.Component {
 const mapStateToProps = state => ({
   currentMenuItem: state.closet.currentMenuItem,
   selectedItems: state.closet.selectedItems,
-  categories: state.closet.itemCategories,
-  brands: state.closet.itemBrands,
-  colors: state.closet.itemColors,
-  seasons: state.closet.itemSeasons,
-  selectedSeasons: state.closet.selectedSeasons,
-  selectedColors: state.closet.selectedItemColors,
-  selectedBrands: state.closet.selectedItemBrands,
-  selectedCategories: state.closet.selectedItemCategories
+  categories: state.filter.itemCategories,
+  brands: state.filter.itemBrands,
+  colors: state.filter.itemColors,
+  seasons: state.filter.itemSeasons,
+  selectedSeasons: state.filter.selectedSeasons,
+  selectedColors: state.filter.selectedItemColors,
+  selectedBrands: state.filter.selectedItemBrands,
+  selectedCategories: state.filter.selectedItemCategories
 
 });
 

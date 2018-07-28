@@ -5,6 +5,13 @@ import { bindActionCreators } from 'redux';
 import { Grid, Card } from 'semantic-ui-react';
 import MyClosetFilters from '../MyCloset/MyClosetFilters.jsx';
 import { updateSelectedOutfitItems } from '../../actions/createOutfitsActions.js'
+import {itemBrandsExample, itemCategoriesExample, itemColorsExample, itemSeasonsExample} from "../MyCloset/ExampleData";
+import {
+  updateItemBrands,
+  updateItemCategories,
+  updateItemColors,
+  updateItemSeasons
+} from "../../actions/myFilterActions";
 
 var items = [
   { name: 'item0', src: 'https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2017/12/04/thumb-img/1513712491220519733.jpg' },
@@ -22,6 +29,18 @@ export class CreateOutfits extends React.Component {
   constructor(props) {
     super(props);
     this.onDrop = this.onDrop.bind(this);
+    this.updateFilterOptions=this.updateFilterOptions.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateFilterOptions();
+  }
+
+  updateFilterOptions() {
+    this.props.actions.updateItemCategories(itemCategoriesExample);
+    this.props.actions.updateItemColors(itemColorsExample);
+    this.props.actions.updateItemBrands(itemBrandsExample);
+    this.props.actions.updateItemSeasons(itemSeasonsExample);
   }
 
   onDragStart(event, id) {
@@ -50,7 +69,12 @@ export class CreateOutfits extends React.Component {
               </Card>
             </Grid.Column>
             <Grid.Column width={10}>
-              <MyClosetFilters />
+              <MyClosetFilters
+                categories={this.props.categories}
+                colors={this.props.colors}
+                brands={this.props.brands}
+                seasons={this.props.seasons}
+              />
               <Grid>
                 <Grid.Row columns={3}>
                   <Grid.Column>
@@ -96,13 +120,21 @@ export class CreateOutfits extends React.Component {
 
 const mapStateToProps = state => {
   return ({
-    selectedItems: state.createOutfits.selectedItems
+    selectedItems: state.createOutfits.selectedItems,
+    categories: state.filter.itemCategories,
+    brands: state.filter.itemBrands,
+    colors: state.filter.itemColors,
+    seasons: state.filter.itemSeasons,
   });
 };
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     updateSelectedOutfitItems,
+      updateItemColors,
+      updateItemBrands,
+      updateItemCategories,
+      updateItemSeasons,
   },
     dispatch)
 });

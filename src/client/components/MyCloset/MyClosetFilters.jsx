@@ -10,6 +10,9 @@ import {
   updateSelectedColors,
   updateSelectedCategories,
   updateSelectedBrands,
+} from '../../actions/myFilterActions'
+
+import {
   updateFilteredState,
   updateSelectedItems
 } from '../../actions/myClosetActions';
@@ -92,10 +95,10 @@ export class MyClosetFilters extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedSeasons: state.closet.selectedSeasons,
-  selectedColors: state.closet.selectedItemColors,
-  selectedBrands: state.closet.selectedItemBrands,
-  selectedCategories: state.closet.selectedItemCategories
+  selectedSeasons: state.filter.selectedSeasons,
+  selectedColors: state.filter.selectedItemColors,
+  selectedBrands: state.filter.selectedItemBrands,
+  selectedCategories: state.filter.selectedItemCategories
 });
 
 const mapDispatchToProps = dispatch => ({

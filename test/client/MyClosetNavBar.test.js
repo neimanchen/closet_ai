@@ -17,7 +17,6 @@ describe('MyClosetNavBar', () => {
     const initialState = {
       closet: {
         currentMenuItem: 'All Items',
-        itemCategories: [],
       }
     };
     const mockStore = configureStore([]);

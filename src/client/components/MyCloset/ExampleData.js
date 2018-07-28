@@ -68,7 +68,7 @@ export const filteredItemsExample = [
     url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
   },
   {
-    id: '7',
+    id: '8',
     name: 'Very cool Jacket 2',
     brand: 'AE',
     color: 'Blue',
