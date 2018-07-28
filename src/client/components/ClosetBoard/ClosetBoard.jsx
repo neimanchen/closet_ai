@@ -2,18 +2,20 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Header, Grid, Segment } from 'semantic-ui-react';
+import { Header, Grid } from 'semantic-ui-react';
 import Weather from './Weather.jsx';
 import RecentlyAddedOutfits from './RecentlyAddedOutfits.jsx';
 import RecommendedOutfit from './RecommendedOutfit.jsx';
 import UnwornItems from './UnwornItems.jsx'
-import { updateWeather } from '../../actions/closetBoardActions';
+import unwornItems from '../../../database/unworn_data';
+import { updateWeather, updateUnwornItems } from '../../actions/closetBoardActions';
 import Axios from 'axios/index';
 
 export class ClosetBoard extends React.Component {
   constructor(props) {
     super(props);
     this.getWeather = this.getWeather.bind(this);
+    this.props.actions.updateUnwornItems(unwornItems);
   }
 
   getWeather() {
@@ -59,7 +61,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ updateWeather }, dispatch)
+  actions: bindActionCreators({ updateWeather, updateUnwornItems }, dispatch)
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ClosetBoard));

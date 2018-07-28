@@ -5,21 +5,10 @@ import { bindActionCreators } from 'redux';
 import { Card } from 'semantic-ui-react';
 import { updateUnwornItems } from '../../actions/closetBoardActions';
 import Item from './Item.jsx';
-import unwornItems from '../../../database/unworn_data';
-import PropTypes from 'prop-types';
 
 class UnwornItems extends React.Component {
   constructor(props) {
     super(props);
-    this.getUnwornItems = this.getUnwornItems.bind(this);
-  }
-  componentWillMount() {
-    this.getUnwornItems();
-  }
-
-  getUnwornItems() {
-    // mock data
-    this.props.actions.updateUnwornItems(unwornItems);
   }
 
   render() {
@@ -40,9 +29,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ updateUnwornItems }, dispatch)
 });
-
-unwornItems.propTypes  = {
-  items: PropTypes.array.isRequired
-};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UnwornItems));
