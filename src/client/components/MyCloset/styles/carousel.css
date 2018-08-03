@@ -1,0 +1,56 @@
+
+.slides {
+  position: relative;
+  outline: none;
+}
+
+.slides div {
+  outline: none;
+}
+
+.slick-prev, .slick-next {
+  position: absolute;
+  top: 50%;
+}
+
+.button {
+  background-color: black
+}
+
+.slick-prev {
+  left: -1%;
+  color: black;
+  height: 100%;
+  width: 7%;
+  background-color: whitesmoke;
+  z-index: 1;
+}
+
+.slick-next {
+  right: -1%;
+  color: black;
+  height: 100%;
+  width: 7%;
+  background-color: whitesmoke;
+  z-index: 1;
+}
+
+.slick-next::before, .slick-prev::before {
+  opacity: 1;
+  color: black;
+  background-color: inherit;
+  font-size: 71px;
+  outline: '';
+  background: '';
+}
+
+.slick-next:focus, .slick-prev:focus {
+  opacity: 1;
+  color: black;
+  background-color: whitesmoke;
+}
+
+.slick-disabled, .slick-disabled:focus {
+  background-color: transparent;
+}
+

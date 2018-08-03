@@ -26,7 +26,34 @@ export const allItemsExample =
       category: 'Jacket',
       season: 'Spring',
       url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
-    }],
+    },
+      {
+        id: '3.1',
+        name: 'Extremely cool Jacket',
+        brand: 'Armani',
+        color: 'Yellow',
+        category: 'Jacket',
+        season: 'Spring',
+        url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+      },
+      {
+        id: '3.2',
+        name: 'Extremely cool Jacket 2',
+        brand: 'Armani',
+        color: 'Yellow',
+        category: 'Jacket',
+        season: 'Spring',
+        url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+      },
+      {
+        id: '3.3',
+        name: 'VeExtremely cool Jacket 3',
+        brand: 'Armani',
+        color: 'Yellow',
+        category: 'Jacket',
+        season: 'Spring',
+        url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
+      }],
   Shirt: [
     {
       id: '4',

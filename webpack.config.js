@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 const NodemonPlugin = require('nodemon-webpack-plugin');
 const path = require('path');
 let nodeExternals = require('webpack-node-externals');
@@ -26,7 +27,10 @@ const moduleObj = {
     },
     {
       test: /\.css$/,
-      use: ["style-loader", "css-loader"]
+      use: ExtractTextPlugin.extract({
+        fallback: "style-loader",
+        use: "css-loader"
+      })
     }
   ]
 };
@@ -41,7 +45,7 @@ const client = {
     publicPath: '/'
   },
   module: moduleObj,
- plugins: [htmlWebpackPlugin]
+ plugins: [htmlWebpackPlugin, new ExtractTextPlugin("styles.css")]
 };
 
 const server = {
