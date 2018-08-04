@@ -3,8 +3,13 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateWeather, updateLocation } from '../../actions/closetBoardActions';
-import Axios from 'axios';
 import { Segment } from 'semantic-ui-react';
+import Axios from 'axios';
+import weatherOptions from './weatherOptions.js';
+import iconMap from './iconMap.js';
+
+const queryURL = 'https://query.yahooapis.com/v1/public/yql?q=';
+const queryFormat = '&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
 
 export class Weather extends React.Component {
   constructor(props) {
@@ -19,11 +24,21 @@ export class Weather extends React.Component {
   }
 
   getWeather() {
-    Axios.get(`/api/locationkey?lat=${this.props.location.latitude}&lon=${this.props.location.longitude}`)
+    const query = `select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D%22(${this.props.location.latitude}%2C${this.props.location.longitude})%22)`;
+    Axios.get(queryURL + query + queryFormat)
       .then((response) => {
-        this.props.actions.updateWeather(response.data);
+        var weatherData = response.data.query.results.channel;
+        var location = weatherData.location
+        var forecast = weatherData.item.forecast;
+        this.props.actions.updateWeather({
+          weatherOption: weatherOptions[forecast[0].code] || weatherOptions.default,
+          low: forecast[0].low,
+          high: forecast[0].high,
+          city: location.city,
+          text: forecast[0].text
+        });
       }).catch((err) => {
-        this.props.actions.updateWeather('There was an error getting the weather - please try again later');
+        this.props.actions.updateWeather('There was an error getting the weather - please try again later: ' + err);
       });
   }
 
@@ -40,19 +55,30 @@ export class Weather extends React.Component {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
     });
+    this.getWeather();
   }
 
   render() {
+    if (this.props.location.error) {
+      return this.props.location.error;
+    }
+    if (!this.props.weather) {
+      return 'Checking the weather...'
+    }
+    let weather = this.props.weather;
+    let Icon = iconMap[this.props.weather.weatherOption];
     return (
-      <div>
+      <Segment.Group horizontal>
         <Segment>
-          {
-            this.props.location.error ? this.props.location.error :
-              <button onClick={this.getWeather}>Click to get weather</button>
-          }
-          <pre>{JSON.stringify(this.props.weather, null, 2)}</pre>
+          <Icon />
         </Segment>
-      </div>
+        <Segment>
+          <p>{weather.city}</p>
+          <p>Low: {weather.low}°F</p>
+          <p>High: {weather.high}°F</p>
+          <p>{weather.text}</p>
+        </Segment>
+      </Segment.Group >
     );
   }
 }

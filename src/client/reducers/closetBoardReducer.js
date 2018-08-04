@@ -8,7 +8,7 @@ import {
 import { WEATHER, LOCATION } from '../actions/closetBoardActions';
 
 const initialState = {
-  weather: 'Allow geolcation and then click button that appears',
+  weather: null,
   location: { error: 'Waiting for location...' }
 };
 

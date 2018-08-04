@@ -8,22 +8,12 @@ import RecentlyAddedOutfits from './RecentlyAddedOutfits.jsx';
 import RecommendedOutfit from './RecommendedOutfit.jsx';
 import UnwornItems from './UnwornItems.jsx'
 import unwornItems from '../../../database/unworn_data';
-import { updateWeather, updateUnwornItems } from '../../actions/closetBoardActions';
-import Axios from 'axios/index';
+import { updateUnwornItems } from '../../actions/closetBoardActions';
 
 export class ClosetBoard extends React.Component {
   constructor(props) {
     super(props);
-    this.getWeather = this.getWeather.bind(this);
     this.props.actions.updateUnwornItems(unwornItems);
-  }
-
-  getWeather() {
-    Axios.get(`/api/locationkey?lat=30.37&lon=-97.76`).then((response) => {
-      this.props.actions.updateWeather(response.data);
-    }).catch((err) => {
-      this.props.actions.updateWeather('There was an error getting the weather - please try again later');
-    });
   }
 
   render() {
@@ -37,7 +27,7 @@ export class ClosetBoard extends React.Component {
           </Grid.Column>
           <Grid.Column>
             <Header> Weather </Header>
-            <Weather id='weather' getWeather={this.getWeather}/>
+            <Weather id='weather' />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row verticalAlign='middle' stretched>
@@ -57,11 +47,10 @@ export class ClosetBoard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  weather: state.closetBoard.weather
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ updateWeather, updateUnwornItems }, dispatch)
+  actions: bindActionCreators({ updateUnwornItems }, dispatch)
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ClosetBoard));
