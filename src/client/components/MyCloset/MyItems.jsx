@@ -6,6 +6,8 @@ import { Grid } from 'semantic-ui-react';
 import Item from './Item.jsx';
 import Slider from "react-slick";
 import './styles/carousel.css';
+import { bindActionCreators } from "redux";
+import { updatedModalState } from "../../actions/myClosetActions";
 
 
 export class MyItems extends React.Component {
@@ -13,18 +15,23 @@ export class MyItems extends React.Component {
     super(props);
     this.filteredView = this.filteredView.bind(this);
     this.notFilteredView = this.notFilteredView.bind(this);
-  }
+    this.toggle = this.toggle.bind(this);
+}
 
-  filteredView() {
-    return (
-      <Grid.Row verticalAlign="middle" centered>
-        {this.props.items.map((item) => (
-          <Grid.Column key={item.id} mobile={16} computer={5} tablet={8} widescreen={5} largeScreen={5}>
-            <Item key={item.id} url={item.url} name={item.name} category={item.category} brand={item.brand}/>
-          </Grid.Column>
-        ))}
-      </Grid.Row>
-    )
+filteredView() {
+  return (
+    <Grid.Row verticalAlign="middle" centered>
+      {this.props.items.map((item) => (
+        <Grid.Column key={item.id} mobile={16} computer={5} tablet={8} widescreen={5} largeScreen={5}>
+          <Item key={item.id} url={item.url} name={item.name} category={item.category} brand={item.brand}/>
+        </Grid.Column>
+      ))}
+    </Grid.Row>
+  )
+}
+
+  toggle(item) {
+    this.props.actions.updatedModalState(!this.props.isModalDisplayed, item);
   }
 
   notFilteredView() {
@@ -51,7 +58,11 @@ export class MyItems extends React.Component {
               <Slider {...carouselSettings}>
                   {this.props.items[category.text].map(item  => (
                     <div key={`div ${item.id}`}>
-                      <Item url={item.url} name={item.name} category={item.category} brand={item.brand}/>
+                      <Item isModalDisplayed={this.props.isModalDisplayed}
+                            modalItem={this.props.currentModalItem}
+                            toggle={this.toggle}
+                            item={item}
+                      />
                     </div>
                   ))}
               </Slider>
@@ -74,21 +85,32 @@ export class MyItems extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  selectedSeasons: state.filter.selectedSeasons,
-  selectedColors: state.filter.selectedItemColors,
-  selectedBrands: state.filter.selectedItemBrands,
-  selectedCategories: state.filter.selectedItemCategories,
-  isFiltered: state.closet.isFiltered,
-  categories: state.filter.itemCategories || [],
-});
-
 MyItems.propTypes  = {
   items: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array
   ]),
-  categories: PropTypes.array
+  categories: PropTypes.array,
+  isModalDisplayed: PropTypes.bool.isRequired,
 };
 
-export default withRouter(connect(mapStateToProps)(MyItems));
+const mapStateToProps = state => {
+  return {
+    selectedSeasons: state.filter.selectedSeasons,
+    selectedColors: state.filter.selectedItemColors,
+    selectedBrands: state.filter.selectedItemBrands,
+    selectedCategories: state.filter.selectedItemCategories,
+    isFiltered: state.closet.isFiltered,
+    categories: state.filter.itemCategories || [],
+    isModalDisplayed: state.closet.isModalDisplayed,
+    currentModalItem: state.closet.currentModalItem,
+  }
+};
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    updatedModalState,
+  }, dispatch)
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyItems));

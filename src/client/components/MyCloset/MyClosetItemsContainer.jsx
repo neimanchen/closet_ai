@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { MyItems } from './MyItems.jsx';
+import MyItems from './MyItems.jsx';
 import { withRouter } from 'react-router-dom';
 import MyClosetFilters from './MyClosetFilters.jsx';
 import { bindActionCreators } from 'redux';
