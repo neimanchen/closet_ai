@@ -7,6 +7,9 @@ export const allItemsExample =
       color: 'Black',
       category: 'Jacket',
       season: 'Winter',
+      description: 'cool beans',
+      price: 'big bucks',
+      purchaseDate: '6/6/6',
       url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
     },
     {
@@ -16,6 +19,9 @@ export const allItemsExample =
       color: 'Blue',
       category: 'Jacket',
       season: 'Summer',
+      description: 'cool beans',
+      price: 'big bucks',
+      purchaseDate: '6/6/6',
       url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
     },
     {
@@ -25,6 +31,9 @@ export const allItemsExample =
       color: 'Yellow',
       category: 'Jacket',
       season: 'Spring',
+      description: 'cool beans',
+      price: 'big bucks',
+      purchaseDate: '6/6/6',
       url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
     },
       {
@@ -34,6 +43,9 @@ export const allItemsExample =
         color: 'Yellow',
         category: 'Jacket',
         season: 'Spring',
+        description: 'cool beans',
+        price: 'big bucks',
+        purchaseDate: '6/6/6',
         url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
       },
       {
@@ -43,6 +55,9 @@ export const allItemsExample =
         color: 'Yellow',
         category: 'Jacket',
         season: 'Spring',
+        description: 'cool beans',
+        price: 'big bucks',
+        purchaseDate: '6/6/6',
         url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
       },
       {
@@ -52,6 +67,9 @@ export const allItemsExample =
         color: 'Yellow',
         category: 'Jacket',
         season: 'Spring',
+        description: 'cool beans',
+        price: 'big bucks',
+        purchaseDate: '6/6/6',
         url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
       }],
   Shirt: [
@@ -62,6 +80,9 @@ export const allItemsExample =
       color: 'White',
       category: 'Shirt',
       season: 'Winter',
+      description: 'cool beans',
+      price: 'big bucks',
+      purchaseDate: '6/6/6',
       url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
     },
     {
@@ -71,6 +92,9 @@ export const allItemsExample =
       color: 'Purple',
       category: 'Shirt',
       season: 'Summer',
+      description: 'cool beans',
+      price: 'big bucks',
+      purchaseDate: '6/6/6',
       url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
     },
     {
@@ -80,6 +104,9 @@ export const allItemsExample =
       color: 'Blue',
       category: 'Shirt',
       season: 'Spring',
+      description: 'cool beans',
+      price: 'big bucks',
+      purchaseDate: '6/6/6',
       url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
     }]
   };
@@ -92,6 +119,9 @@ export const filteredItemsExample = [
     color: 'Blue',
     category: 'Shirts',
     season: 'Spring',
+    description: 'cool beans',
+    price: 'big bucks',
+    purchaseDate: '6/6/6',
     url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
   },
   {
@@ -101,6 +131,9 @@ export const filteredItemsExample = [
     color: 'Blue',
     category: 'Shirts',
     season: 'Spring',
+    description: 'cool beans',
+    price: 'big bucks',
+    purchaseDate: '6/6/6',
     url: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_65_400495?$prod$'
   }
 ];

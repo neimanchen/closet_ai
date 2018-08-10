@@ -7,7 +7,7 @@ import Item from './Item.jsx';
 import Slider from "react-slick";
 import './styles/carousel.css';
 import { bindActionCreators } from "redux";
-import { updatedModalState } from "../../actions/myClosetActions";
+import { updatedModalState } from "../../actions/modalActions.js";
 
 
 export class MyItems extends React.Component {
@@ -23,7 +23,12 @@ filteredView() {
     <Grid.Row verticalAlign="middle" centered>
       {this.props.items.map((item) => (
         <Grid.Column key={item.id} mobile={16} computer={5} tablet={8} widescreen={5} largeScreen={5}>
-          <Item key={item.id} url={item.url} name={item.name} category={item.category} brand={item.brand}/>
+          <Item key={item.id}
+                isModalDisplayed={this.props.isModalDisplayed}
+                modalItem={this.props.currentModalItem}
+                toggle={this.toggle}
+                item={item}
+          />
         </Grid.Column>
       ))}
     </Grid.Row>
@@ -102,8 +107,8 @@ const mapStateToProps = state => {
     selectedCategories: state.filter.selectedItemCategories,
     isFiltered: state.closet.isFiltered,
     categories: state.filter.itemCategories || [],
-    isModalDisplayed: state.closet.isModalDisplayed,
-    currentModalItem: state.closet.currentModalItem,
+    isModalDisplayed: state.item.isModalDisplayed,
+    currentModalItem: state.item.currentModalItem,
   }
 };
 

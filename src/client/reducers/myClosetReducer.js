@@ -4,8 +4,6 @@ import {
   CLOSET_CATEGORIES,
   OUTFIT_CATEGORIES,
   FILTERED_STATE,
-  MODAL_DISPLAY_STATE,
-  CURRENTLY_DISPLAYED_ITEM,
 } from '../actions/myClosetActions';
 
 // TODO: this is temporary, need to figure out what the default state will be
@@ -15,8 +13,6 @@ const initialState = {
   closetCategories: [],
   outfitCategories: [],
   filteredState: false,
-  isModalDisplayed: false,
-  currentModalItem: {},
 };
 
 export function myClosetReducer(state = initialState, action) {
@@ -41,11 +37,6 @@ export function myClosetReducer(state = initialState, action) {
     case FILTERED_STATE:
       return Object.assign({}, state, {
         filteredState: action.isFiltered
-      });
-    case MODAL_DISPLAY_STATE:
-      return Object.assign({}, state, {
-        currentModalItem: action.item,
-        isModalDisplayed: action.isModalDisplayed,
       });
     default:
       return state;
