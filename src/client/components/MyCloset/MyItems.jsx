@@ -28,6 +28,7 @@ filteredView() {
                 modalItem={this.props.currentModalItem}
                 toggle={this.toggle}
                 item={item}
+                drag={this.props.drag}
           />
         </Grid.Column>
       ))}
@@ -60,13 +61,14 @@ filteredView() {
               <h2>{category.text}s</h2>
             </Grid.Column>
             <Grid.Column width={16}>
-              <Slider {...carouselSettings}>
+              <Slider {...carouselSettings} touchMove={!this.props.drag} >
                   {this.props.items[category.text].map(item  => (
                     <div key={`div ${item.id}`}>
                       <Item isModalDisplayed={this.props.isModalDisplayed}
                             modalItem={this.props.currentModalItem}
                             toggle={this.toggle}
                             item={item}
+                            drag={this.props.drag}
                       />
                     </div>
                   ))}

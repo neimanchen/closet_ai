@@ -68,7 +68,7 @@ export class MyClosetItemsContainer extends React.Component {
           brands={this.props.brands}
           seasons={this.props.seasons}
         />
-        <MyItems items={this.props.selectedItems} categories={this.props.categories}/>
+        <MyItems items={this.props.selectedItems} categories={this.props.categories} drag={this.props.drag} />
       </div>
     );
   }
