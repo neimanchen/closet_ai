@@ -1,15 +1,23 @@
 import React from 'react';
 import { Grid, Modal, Button, Header, Image, Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { updateImageURL } from '../../actions/addItemActions';
+import UploadForm from './UploadForm.jsx';
 
 export class UploadItemInfo extends React.Component {
   constructor(props) {
     super(props)
   }
 
+  submitForm() {
+    //TODO: axios call to save to DB
+  }
+
   render() {
     const inlineStyle = {
-      modal : {
+      modal: {
         top: '50px'
       },
       button: {
@@ -18,42 +26,11 @@ export class UploadItemInfo extends React.Component {
     };
 
     return (
-      <Modal trigger={<Button>Upload</Button>} style={inlineStyle.modal}>
+      <Modal trigger={<Button>Upload</Button>} style={inlineStyle.modal} >
         <Modal.Content image>
-          <Image wrapped size='large' src='https://getonfleek.com/wp-content/uploads/2017/04/emoji-poop-joggers.png' />
+          <Image wrapped size='large' src={this.props.imageURL} />
           <Modal.Description>
-            <Form>
-              <Form.Field>
-                <label>Brand</label>
-                <input />
-              </Form.Field>
-              <Form.Field>
-                <label>Category</label>
-                <input />
-              </Form.Field>
-              <Form.Field>
-                <label>Color</label>
-                <input />
-              </Form.Field>
-              <Form.Field>
-                <label>Size</label>
-                <input />
-              </Form.Field>
-              <Form.Field>
-                <label>Season</label>
-                <input />
-              </Form.Field>
-              <Form.Field>
-                <label>Price</label>
-                <input />
-              </Form.Field>
-              <Form.Field>
-                <label>Date Purchased</label>
-                <input />
-              </Form.Field>
-              <Button content="Cancel" />
-              <Button content="Save" />
-            </Form>
+            <UploadForm onSubmit={this.submitForm} />
           </Modal.Description>
         </Modal.Content>
       </Modal>
@@ -61,4 +38,12 @@ export class UploadItemInfo extends React.Component {
   }
 }
 
-export default withRouter(UploadItemInfo);
+const mapStateToProps = state => ({
+  imageURL: state.addItem.imageURL
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ updateImageURL }, dispatch)
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UploadItemInfo));

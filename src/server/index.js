@@ -18,7 +18,7 @@ var app = express();
 app.use((res, req, next) => {
   res.header('Access-Controll-Allow-Origin', '*');
   res.header('Access-Controll-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Controll-Allow-Headers', 'Content-Type');
+  res.header('Access-Controll-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
   next();
 })
 
@@ -27,6 +27,38 @@ var s3 = new AWS.S3({
   secretAccessKeyId: secretAccessKeyId,
   Bucket: CLOSET_AI_BUCKET,
   apiVersion: S3_API_VER
+});
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: CLOSET_AI_BUCKET,
+    acl: 'private',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    metadata: (req, file, cb) => {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: (req, file, cb) => {
+      cb(null, 'test');
+    }
+  })
+});
+
+app.post('/api/drop', upload.single('image'), (req, res, next) => {
+  let params = {
+    ACL: 'private',
+    Bucket: CLOSET_AI_BUCKET,
+    Key: 'test',
+  }
+  s3.putObject(params, (err) => {
+    if (err) {
+      res.status(400);
+      res.write('Error creating object');
+      res.end();
+    } else {
+      next();
+    }
+  });
 });
 
 // e.g. http://localhost:3000/api/locationkey?lat=30.37&lon=-97.76
@@ -76,7 +108,7 @@ app.get('/api/barcode', (req, res) => {
       Authorization: barcodableKey
     }
   }
-  Axios.get('https://www.barcodable.com/api/v1/upc/826218178634', config)
+  Axios.get(`https://www.barcodable.com/api/v1/upc/${req.query.data}`, config)
   .then((response) => {
     res.send(response.data);
   }).catch((error) => {

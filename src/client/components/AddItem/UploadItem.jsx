@@ -1,7 +1,10 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import UploadItemInfo from './UploadItemInfo.jsx';
+import Dropzone from 'react-dropzone';
 
 export class UploadItem extends React.Component {
   constructor(props) {
@@ -10,18 +13,15 @@ export class UploadItem extends React.Component {
 
   render() {
     return (
-      <Grid.Row>
-        <Grid.Column>
-          <div id="dz" className="default">
-            <div className="dz-text">Drag an image to upload</div>
-            <UploadItemInfo />
+      <div>
+        <Dropzone id="dz" className="default" onDrop={this.handleDrop} multiple={false} onChange={this.fileLog}>
+          <div className="dz-text">
+            Drag an image to upload
           </div>
-        </Grid.Column>
-      </Grid.Row>
-    )
+        </Dropzone>
+      </div>
+    );
   }
 }
 
 export default withRouter(UploadItem);
-
-
