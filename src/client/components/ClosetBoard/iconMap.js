@@ -20,8 +20,9 @@ const iconMap = {
   hail: IconHail,
   cloudy: IconCloudy,
   windy: IconCloudyGusts,
-  partly_cloudly: IconSunnyOvercast,
-  sunny: IconSunny
+  partly_cloudy: IconSunnyOvercast,
+  sunny: IconSunny,
+  default: IconSunny
 }
 
 export default iconMap;

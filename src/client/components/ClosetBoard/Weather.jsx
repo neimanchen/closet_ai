@@ -66,7 +66,7 @@ export class Weather extends React.Component {
       return 'Checking the weather...'
     }
     let weather = this.props.weather;
-    let Icon = iconMap[this.props.weather.weatherOption];
+    let Icon = iconMap[this.props.weather.weatherOption] || iconMap.default;
     return (
       <Segment.Group horizontal>
         <Segment>
