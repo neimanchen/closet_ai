@@ -8,9 +8,9 @@ module.exports = {
     Fall: [{value: 61, inclusive: false}, {value: 75}]
   },
   categories: {
-    All: ['Pants', 'Tops', 'Shoes', 'Accessories', 'Sleepwear & Lounge', 'Coats & Jackets', 'Shorts', 'Sweaters', 'Suits & Separates'],
-    Women: ['Jumpsuits & Rompers', 'Dresses', 'Skirts', 'Lingerie, Hosiery & Socks'],
-    Men: ['Underwear, Undershirts & Socks']
+    Both: ['Pants', 'Tops', 'Shoes', 'Accessories', 'Sleepwear & Lounge', 'Coats & Jackets', 'Shorts', 'Sweaters', 'Suits & Separates'],
+    Female: ['Jumpsuits & Rompers', 'Dresses', 'Skirts', 'Lingerie, Hosiery & Socks'],
+    Male: ['Underwear, Undershirts & Socks']
   },
   stylesSeasons: {
     Winter: {
@@ -37,18 +37,18 @@ module.exports = {
     }
   },
   styles: {
-    All: {
+    both: {
       Tops: ['Button-Down', 'T-Shirt/Tank', 'Sweatshirts & Hoodies'],
       Pants: ['Jeans', 'Active', 'Cargo', 'Dress', 'Jogger/Sweatpant'],
       'Coats & Jackets': ['Hooded', 'Leather', 'Parka', 'Puffer/Quilted', 'Denim', 'Trench', 'Vest', 'Windbreaker', 'Overcoat', 'Bomber', 'Raincoat', 'Motorcycle', 'Peacoat'],
       Shorts: ['Active', 'Bermuda', 'Cargo', 'Denim', 'Sweat']
     },
-    Women: {
+    Female: {
       Tops: ['Blouse', 'Bodysuit', 'Crop-Top', 'Lace-up', 'Camisole'],
       Pants: ['Legging', 'Capris/Cropped', 'Trouser'],
       Shorts: ['Romper', 'Short']
     },
-    Men: {
+    Male: {
       Tops: ['Dress Shirt', 'Polo Shirt'],
       Pants: ['Chino'],
       Shorts: ['Hybrid', 'Chino', 'Swim']
@@ -159,271 +159,4 @@ module.exports = {
       purchaseDate: '2018-02-01'
     }
   ]
-
-  // styles: [
-  //   {
-  //     name: 'Button-Down',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Button-Down',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Button-Down',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Summer'
-  //   },
-  //   {
-  //     name: 'Button-Down',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'T-Shirt/Tank',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'T-Shirt/Tank',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'T-Shirt/Tank',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Summer'
-  //   },
-  //   {
-  //     name: 'T-Shirt/Tank',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Sweatshirts & Hoodies',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Sweatshirts & Hoodies',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Sweatshirts & Hoodies',
-  //     gender: 'All',
-  //     category: 'Tops',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Jeans',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Jeans',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Jeans',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Summer'
-  //   },
-  //   {
-  //     name: 'Jeans',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Active',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Active',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Active',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Summer'
-  //   },
-  //   {
-  //     name: 'Active',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Cargo',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Cargo',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Active',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Summer'
-  //   },
-  //   {
-  //     name: 'Active',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Cargo'
-  //   },
-  //   {
-  //     name: 'Dress',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Dress',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Dress',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Summer'
-  //   },
-  //   {
-  //     name: 'Dress',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Jogger/Sweatpant',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Jogger/Sweatpant',
-  //     gender: 'All',
-  //     category: 'Pants',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Hooded',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Hooded',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Hooded',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Leather',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Leather',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Leather',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Parka',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Parka',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Parka',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Puffer/Quilted',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'winter'
-  //   },
-  //   {
-  //     name: 'Denim',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Denim',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Spring'
-  //   },
-  //   {
-  //     name: 'Denim',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Fall'
-  //   },
-  //   {
-  //     name: 'Denim',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Winter'
-  //   },
-  //   {
-  //     name: 'Puffer/Quilted',
-  //     gender: 'All',
-  //     category: 'Coats & Jackets',
-  //     season: 'Fall'
-  //   },
-  // ]
 };

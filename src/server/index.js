@@ -1,28 +1,33 @@
-var port = process.env.PORT || 3000;
-var express = require('express');
-var path = require('path');
-var Axios = require('axios');
+const port = process.env.PORT || 3000;
+const express = require('express');
+const path = require('path');
+const Axios = require('axios');
 const ACCUWEATHER_KEY = require('./config.js').keys.accuweatherKey;
-var AWS = require('aws-sdk');
-var accessKeyId = require('./config.js').keys.accessKeyId;
-var secretAccessKeyId = require('./config.js').keys.secretAccessKeyId;
-var barcodableKey = require('./config.js').keys.barcodable;
-var multer = require('multer');
-var multerS3 = require('multer-s3');
+const AWS = require('aws-sdk');
+const accessKeyId = require('./config.js').keys.accessKeyId;
+const secretAccessKeyId = require('./config.js').keys.secretAccessKeyId;
+const barcodableKey = require('./config.js').keys.barcodable;
+const multer = require('multer');
+const multerS3 = require('multer-s3');
 const CLOSET_AI_BUCKET = 'closet.test'
 const S3_API_VER = '2006-03-01';
-var db = require('../database');
+const db = require('../database');
+const bcrypt = require('bcrypt-nodejs');
+const session = require('express-session');
 
-var app = express();
+const app = express();
 
+const homePath = __dirname + '../../../dist';
+app.use(express.static(homePath));
+app.use('/signup', express.static(homePath));
 app.use((res, req, next) => {
-  res.header('Access-Controll-Allow-Origin', '*');
-  res.header('Access-Controll-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Controll-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
   next();
-})
+});
 
-var s3 = new AWS.S3({
+const s3 = new AWS.S3({
   accessKeyId: accessKeyId,
   secretAccessKeyId: secretAccessKeyId,
   Bucket: CLOSET_AI_BUCKET,
@@ -49,7 +54,7 @@ app.post('/api/drop', upload.single('image'), (req, res, next) => {
     ACL: 'private',
     Bucket: CLOSET_AI_BUCKET,
     Key: 'test',
-  }
+  };
   s3.putObject(params, (err) => {
     if (err) {
       res.status(400);
@@ -63,11 +68,11 @@ app.post('/api/drop', upload.single('image'), (req, res, next) => {
 
 // e.g. http://localhost:3000/api/locationkey?lat=30.37&lon=-97.76
 app.get('/api/locationkey', (req, res) => {
-  var lat = req.query.lat;
+  let lat = req.query.lat;
   if (lat === undefined) {
     return res.status(400).send({ error: 'missing property lat' });
   }
-  var lon = req.query.lon;
+  let lon = req.query.lon;
   if (lon === undefined) {
     return res.status(400).send({ error: 'missing property lon' });
   }
@@ -79,7 +84,7 @@ app.get('/api/locationkey', (req, res) => {
   if (isNaN(lon) || lon < -180 || lon > 180) {
     return res.status(400).send({ error: 'lon must be a valid number between -180.0 and 180.0' });
   }
-  var coordinates = lat + '%2C' + lon;
+  let coordinates = lat + '%2C' + lon;
   Axios.get('http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?' +
     `apikey=${ACCUWEATHER_KEY}&q=${coordinates}`).then(function (response) {
       if (response.data === null || response.data.Key === undefined || response.data.Key === null) {
@@ -103,24 +108,46 @@ function sendWeather(locationKey, res) {
 }
 
 app.get('/api/barcode', (req, res) => {
-  var config = {
+  let config = {
     headers: {
       Authorization: barcodableKey
     }
-  }
+  };
   Axios.get(`https://www.barcodable.com/api/v1/upc/${req.query.data}`, config)
   .then((response) => {
     res.send(response.data);
   }).catch((error) => {
     res.status(500).send({error: 'There was an error getting your info from Barcodable'});
   });
-})
+});
 
-app.use(express.static(__dirname + '../../../dist'));
-
-app.get('/filltestdata', (req, res) => {
-  db.createDummyData();
-  res.status(200).end('Created Data')
+app.post('/signup', (req, res) => {
+  let userData = req.body;
+  bcrypt.hash(userData.password, null, null, (err, hash) => {
+    if (err) {
+      res.redirect(500, '/signup');
+    }
+    userData.password = hash;
+  });
+  db.checkUserExists(userData.email, (err, result) => {
+    if (err) {
+      res.redirect(500, '/signup');
+    }
+    if (result.length) {
+      res.status(500).send('username already exists!');
+    } else {
+      db.createUser(userData, (err, result) => {
+        if(err) {
+          res.redirect(500, '/signup');
+        } else {
+          req.session.regenerate(() => {
+            req.session.user = result.insertId;
+            res.redirect('/home');
+          });
+        }
+      });
+    }
+  });
 });
 
 app.get('/cleartables', (req, res) => {

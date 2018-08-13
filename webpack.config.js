@@ -80,5 +80,4 @@ const server = {
   }
 };
 
-
 module.exports = [client, server];

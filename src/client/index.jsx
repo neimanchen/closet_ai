@@ -5,9 +5,16 @@ import reducers from './reducers/index.jsx';
 import ClosetBoard from './components/ClosetBoard/ClosetBoard.jsx';
 import MyCloset from './components/MyCloset/MyCloset.jsx';
 import CreateOutfits from './components/CreateOutfits/CreateOutfits.jsx';
+import Signup from './components/Signup.jsx';
+import Login from './components/Login.jsx';
 import Header from './components/Header.jsx';
 import AddItem from './components/AddItem/AddItem.jsx';
 import { Provider } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Route,
+  withRouter,
+} from 'react-router-dom';
 
 const middlewares = [];
 
@@ -21,12 +28,6 @@ const store = createStore(
   reducers,
   applyMiddleware(...middlewares)
 );
-
-import {
-  BrowserRouter as Router,
-  Route,
-  withRouter,
-} from 'react-router-dom';
 
 const DefaultLayout = ({ component: Component, ...rest }) => {
   return (
@@ -50,6 +51,9 @@ class App extends React.Component {
         <Router>
           <Provider store={store}>
             <div className="content container">
+              {/*<DefaultLayout path="/" component={ClosetBoard} store={store} />*/}
+              <DefaultLayout path="/signup" component={Signup} store={store} />
+              <DefaultLayout path="/login" component={Login} store={store} />
               <DefaultLayout path="/mycloset" component={MyCloset} store={store} />
               <DefaultLayout path="/closetboard" component={ClosetBoard} store={store} />
               <DefaultLayout path="/createoutfits" component={CreateOutfits} store={store} />

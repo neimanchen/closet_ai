@@ -6,6 +6,7 @@ import { createOutfitsReducer as createOutfits } from './createOutfitsReducer.js
 import { modalReducer as item } from './modalReducer.js';
 import { addItemReducer as addItem } from './addItemReducer.js';
 import { reducer as formReducer } from 'redux-form';
+import { userInfoReducer as userInfo } from './userInfoReducer';
 
 const reducers = combineReducers({
   closet,
@@ -14,6 +15,7 @@ const reducers = combineReducers({
   createOutfits,
   item,
   addItem,
+  userInfo,
   form: formReducer
 });
 

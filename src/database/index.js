@@ -27,7 +27,8 @@ db.authenticate()
 // Models for schema creation. TODO: factor out later.
 const User = db.define('users', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-  name: { type: Sequelize.STRING },
+  firstName: { type: Sequelize.STRING },
+  lastName: { type: Sequelize.STRING },
   email: { type: Sequelize.STRING, unique: true },
   hash: { type: Sequelize.STRING, allowNull: false },
   gender: { type: Sequelize.STRING },
@@ -118,6 +119,8 @@ db.sync()
               .then(() => Calendar.sync()
                 .then(() => Style.sync()
                   .then(() => Season.sync())))))))));
+
+
 
 const dbHelpers = {
   seedColors: () => {

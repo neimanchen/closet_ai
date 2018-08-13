@@ -1,9 +1,10 @@
 module.exports = {
   user: {
-    name: 'Amy Awesome',
-      email: 'amy@testemail.com',
+    firstName: 'Amy',
+    lastName: 'Awesome',
+    email: 'amy@testemail.com',
     hash: '$2a$10$flgD5OmkK2cwd/7CddCOW.Ujd30tqTb4r02bYVfYuI/GlwKw5gNt.',
-    gender: 'She/Her/Hers',
+    gender: 'Female',
     zip: '94519',
     workZip: '94108',
     birthDate: '1988-07-19',
