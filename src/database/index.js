@@ -94,8 +94,8 @@ Closet.hasMany(Item); // closetId to Item; getItem, setItem , { foreignKey: { al
 Item.belongsTo(Closet); //, { foreignKey: { allowNull: false } }
 Color.hasMany(Item); //, { foreignKey: { allowNull: false } }
 Item.belongsTo(Color);
-Category.hasMany(Item); //, { foreignKey: { allowNull: false } }
-Item.belongsTo(Category); //, { foreignKey: { allowNull: false } }
+Style.hasMany(Item); //, { foreignKey: { allowNull: false } }
+Item.belongsTo(Style); //, { foreignKey: { allowNull: false } }
 Category.hasMany(Style);
 Style.belongsTo(Category);
 Outfit.hasMany(Calendar); //, { foreignKey: { allowNull: false } }
@@ -119,8 +119,6 @@ db.sync()
               .then(() => Calendar.sync()
                 .then(() => Style.sync()
                   .then(() => Season.sync())))))))));
-
-
 
 const dbHelpers = {
   seedColors: () => {
@@ -170,14 +168,7 @@ const dbHelpers = {
             });
           }));
       });
-      Promise.all(promises)
-        // .then(() => {
-        //   let seasons = Object.keys(seed.stylesSeasons);
-        //   seasons.forEach((season) => {
-        //
-        //   })
-        //
-        // });
+      Promise.all(promises);
     });
   }, createDB: async () => {
     await db.sync()
@@ -218,7 +209,7 @@ const dbHelpers = {
           .then(async (closet) => {
             fakeData.items.forEach(async (item) => {
               let color = await Color.findOne({where: {name: item.color}, attributes: ['id']});
-              let category = await Category.findOne({where: {name: item.category}, attributes: ['id']});
+              let style = await Style.findOne({where: {name: item.style}, attributes: ['id']});
               Item.create({
                 brandName: item.brandName,
                 itemName: item.itemName,
@@ -237,7 +228,7 @@ const dbHelpers = {
                 .then((item) => {
                   item.setCloset(closet);
                   item.setColor(color);
-                  item.setCategory(category);
+                  item.setStyle(style);
                 });
             });
          })

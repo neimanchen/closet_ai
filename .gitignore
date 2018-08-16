@@ -79,6 +79,8 @@ dist/
 src/server/config.js
 .jshint.xml
 
-#OS X
+# OS X
 .DS_Store
 
+# floobits
+.floo

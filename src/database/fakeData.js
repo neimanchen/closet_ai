@@ -17,7 +17,6 @@ module.exports = {
     {
       brandName: 'Topshop',
       itemName: 'Cowl Neck Camisole',
-      description: 'Fake item',
       size: '4',
       sku: 5557142,
       s3PublicUrl: 'https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/12/_102747532.jpg?crop=pad&pad_color=FFF&format=jpeg&w=60&h=90',
@@ -29,13 +28,12 @@ module.exports = {
       isClean: true,
       color: 'Black',
       closet: 'My Closet',
-      category: 'Tops',
-      purchaseDate: '2018-06-01'
+      style: 'Camisole',
+      purchaseDate: '2018-02-01'
     },
     {
       brandName: 'BP',
       itemName: 'Raw Edge V-Neck Tee',
-      description: 'Fake item',
       size: '4',
       sku: 5370727,
       s3PublicUrl: 'https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/13/_101151053.jpg?crop=pad&pad_color=FFF&format=jpeg&w=60&h=90',
@@ -47,13 +45,12 @@ module.exports = {
       isClean: true,
       color: 'Orange',
       closet: 'My Closet',
-      category: 'Tops',
+      style: 'T-Shirt/Tank',
       purchaseDate: '2018-03-01'
     },
     {
       brandName: 'Spanx',
       itemName: 'Camo Faux Leather Leggings',
-      description: 'Fake item',
       size: 'Medium',
       sku: 798736,
       s3PublicUrl: 'https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/11/_101901771.jpg?crop=pad&pad_color=FFF&format=jpeg&w=60&h=90',
@@ -65,13 +62,12 @@ module.exports = {
       isClean: true,
       color: 'Blue',
       closet: 'My Closet',
-      category: 'Pants',
+      style: 'Legging',
       purchaseDate: '2018-08-01'
     },
     {
       brandName: 'Topshop',
       itemName: 'Popper Utility Trousers',
-      description: 'Fake item',
       size: 'Medium',
       sku: 5653449,
       s3PublicUrl: 'https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/9/_103541349.jpg?crop=pad&pad_color=FFF&format=jpeg&w=60&h=90',
@@ -83,13 +79,12 @@ module.exports = {
       isClean: true,
       color: 'Blue',
       closet: 'My Closet',
-      category: 'Pants',
+      style: 'Trouser',
       purchaseDate: '2018-05-01'
     },
     {
       brandName: 'Caslon',
       itemName: 'Utility Jacket',
-      description: 'Fake item',
       size: 'Medium',
       sku: 5560277,
       s3PublicUrl: 'https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/17/_103021737.jpg?crop=pad&pad_color=FFF&format=jpeg&w=60&h=90',
@@ -99,17 +94,14 @@ module.exports = {
       timesWorn: 2,
       maxTimesBeforeWash: 3,
       isClean: true,
-      color: [{
-        name: 'Green'
-      }],
+      color: 'Green',
       closet: 'My Closet',
-      category: 'Coats & Jackets',
+      style: 'Denim',
       purchaseDate: '2018-06-01'
     },
     {
       brandName: 'Caslon',
       itemName: 'Two Pocket Knit Blazer',
-      description: 'Fake item',
       size: 'Medium',
       sku: 5560281,
       s3PublicUrl: 'https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/17/_103021737.jpg?crop=pad&pad_color=FFF&format=jpeg&w=60&h=90',
@@ -121,7 +113,7 @@ module.exports = {
       isClean: true,
       color: 'Gray',
       closet: 'My Closet',
-      category: 'Coats & Jackets',
+      style: 'Trench',
       purchaseDate: '2018-02-01'
     }
   ]
