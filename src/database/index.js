@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const seed = require('./seedData.js');
 const fakeData = require('./fakeData.js');
+const faker = require('faker');
 
 if (process.env.DATABASE_URL !== undefined) {
   var db = new Sequelize(process.env.DATABASE_URL, {
@@ -88,18 +89,18 @@ const Calendar = db.define('calendar', {
   date: { type: Sequelize.DATE }
 });
 
-User.hasOne(Closet); //, { foreignKey: { allowNull: false } }
-Closet.belongsTo(User); //, { allowNull: false }
-Closet.hasMany(Item); // closetId to Item; getItem, setItem , { foreignKey: { allowNull: false } }
-Item.belongsTo(Closet); //, { foreignKey: { allowNull: false } }
-Color.hasMany(Item); //, { foreignKey: { allowNull: false } }
+User.hasOne(Closet);
+Closet.belongsTo(User);
+Closet.hasMany(Item);
+Item.belongsTo(Closet);
+Color.hasMany(Item);
 Item.belongsTo(Color);
-Style.hasMany(Item); //, { foreignKey: { allowNull: false } }
-Item.belongsTo(Style); //, { foreignKey: { allowNull: false } }
+Style.hasMany(Item);
+Item.belongsTo(Style);
 Category.hasMany(Style);
 Style.belongsTo(Category);
-Outfit.hasMany(Calendar); //, { foreignKey: { allowNull: false } }
-Calendar.belongsTo(Outfit); //, { foreignKey: { allowNull: false } }
+Outfit.hasMany(Calendar);
+Calendar.belongsTo(Outfit);
 Item.belongsToMany(Outfit, { through: 'OutfitItem' });
 Outfit.belongsToMany(Item, { through: 'OutfitItem' });
 Style.belongsToMany(Season, {through: 'StyleSeason' });
@@ -110,84 +111,68 @@ Season.belongsToMany(Style, { through: 'StyleSeason' });
   season, outfits_items, styles_seasons
   */
 db.sync()
-  .then(() => Category.sync()
-    .then(() => User.sync()
-      .then(() => Closet.sync()
-        .then(()=> Color.sync()
-          .then(() => Item.sync()
-            .then(() => Outfit.sync()
-              .then(() => Calendar.sync()
-                .then(() => Style.sync()
-                  .then(() => Season.sync())))))))));
+  .then(() => Category.sync())
+  .then(() => User.sync())
+  .then(() => Closet.sync())
+  .then(()=> Color.sync())
+  .then(() => Item.sync())
+  .then(() => Outfit.sync())
+  .then(() => Calendar.sync())
+  .then(() => Style.sync())
+  .then(() => Season.sync());
 
 const dbHelpers = {
-  seedColors: () => {
+  seedColors: async () => {
     for (let i = 0; i < seed.colors.length; i++) {
-      let color = Color.build({
+      await Color.create({
         name: seed.colors[i]
       });
-      color.save();
     }
-  }, seedSeasons: async () => { // TODO: allow for customizing of temp range
+  },
+  seedSeasons: async () => { // TODO: allow for customizing of temp range
     let seasonsKeys = Object.keys(seed.seasons); // ['Winter', 'Spring', 'Summer', 'Fall']
     for (let i = 0; i < seasonsKeys.length; i++) {
-      let season = Season.build({
+      await Season.create({
         name: seasonsKeys[i], tempRange: seed.seasons[seasonsKeys[i]] // range associated with each season
       });
-      season.save();
     }
-  }, seedCategories: async () => {
-    // Insert categories then get id's of inserted categories to be used as foreign key in styles
-    let categoriesKeys = Object.keys(seed.categories); // ['NA', 'Women', 'Men']
+  },
+  seedCategories: async () => {
+    let categoriesKeys = Object.keys(seed.categories); // ['Both', 'Women', 'Men']
     for (let i = 0; i < categoriesKeys.length; i++) {
       for (let j = 0; j < seed.categories[categoriesKeys[i]].length; j++) {
-        let category = Category.build({
+        await Category.create({
           name: seed.categories[categoriesKeys[i]][j], gender: categoriesKeys[i]
         });
-        category.save();
       }
     }
-  }, /* seed styles table
-   */
+  },
   seedStyles: async () => {
-    let promises = [];
     let genders = Object.keys(seed.styles);
-    genders.forEach((gender) => {
+    for (const gender of genders) {
       let categories = Object.keys(seed.styles[gender]);
-      categories.forEach((category) => {
+      for (const category of categories) {
+        let categoryModel = await
+        Category.findOne({where: {name: category}});
         let styles = seed.styles[gender][category];
-        promises.push(Category.findOne({where: {name: category}})
-          .then((category) => {
-            styles.forEach((style) => {
-              Style.create({
-                name: style, gender: gender
-              })
-                .then((style) => {
-                  style.setCategory(category);
-                });
-            });
-          }));
-      });
-      Promise.all(promises);
-    });
-  }, createDB: async () => {
-    await db.sync()
-      .then(() => Category.sync()
-        .then(() => User.sync()
-          .then(() => Closet.sync()
-            .then(() => Color.sync()
-              .then(() => Item.sync()
-                .then(() => Calendar.sync()
-                  .then(() => Outfit.sync()
-                    .then(() => Style.sync()
-                      .then(() => Season.sync()
-                        .then(() => dbHelpers.seedCategories()
-                          .then(() => dbHelpers.seedSeasons()
-                            .then(() => dbHelpers.seedStyles()
-                              .then(() => dbHelpers.seedColors())))))))))))));
-    dbHelpers.genFakeData();
-  }, // This function Drops all tables. If used, server needs
-  // to be restarted to recreate the database tables again, or invoke createDB
+        for (const style of styles) {
+          let styleModel = await Style.create({
+            name: style, gender: gender
+          });
+          await styleModel.setCategory(categoryModel);
+        }
+      }
+    }
+  },
+  createDB: async () => {
+    await db.sync();
+    await dbHelpers.seedCategories();
+    await dbHelpers.seedSeasons();
+    await dbHelpers.seedColors();
+    await dbHelpers.seedStyles();
+    await dbHelpers.genFakeData();
+  },
+  // If used, invoke createDB to seed db
   dropTables: () => {
     return db.drop();
   },
@@ -200,39 +185,37 @@ const dbHelpers = {
     Calendar.findAll().then(calendars => calendars.forEach(calendar => calendar.destroy()));
     Item.findAll().then(items => items.forEach(item => item.destroy()));
     Category.findAll().then(categories => categories.forEach(category => category.destroy()));
-  }, // generate fake data
-  genFakeData: () => {
-    User.create(fakeData.user)
-      .then(async (user) => {
-        let closet = await Closet.create(fakeData.closet);
-        closet.setUser(user)
-          .then(async (closet) => {
-            fakeData.items.forEach(async (item) => {
-              let color = await Color.findOne({where: {name: item.color}, attributes: ['id']});
-              let style = await Style.findOne({where: {name: item.style}, attributes: ['id']});
-              Item.create({
-                brandName: item.brandName,
-                itemName: item.itemName,
-                description: item.description,
-                size: item.size,
-                sku: item.sku,
-                s3PublicUrl: item.s3PublicUrl,
-                price: item.price,
-                lastWornDate: item.lastWornDate,
-                isFavorite: item.isFavorite,
-                timesWorn: item.timesWorn,
-                maxTimesBeforeWash: item.maxTimesBeforeWash,
-                isClean: item.isClean,
-                purchaseDate: item.purchaseDate
-              })
-                .then((item) => {
-                  item.setCloset(closet);
-                  item.setColor(color);
-                  item.setStyle(style);
-                });
-            });
-         })
+  },
+  genFakeData: async () => {
+    let stylesModels = await Style.findAll();
+    let colorsModels = await Color.findAll();
+    let booleans = [true, false];
+    let maxWashTimes = [1, 2];
+    let userInstance = await User.create(fakeData.user);
+    let closetInstance = await Closet.create(fakeData.closet);
+    await closetInstance.setUser(userInstance);
+
+    // change the for condition to adjust count of fake items created.
+    for (let i = 0; i < 100; i++ ) {
+      let itemInstance = await Item.create({
+        brandName: faker.company.companyName(),
+        itemName: faker.commerce.productName(),
+        description: faker.commerce.productAdjective(),
+        size: 'M',
+        sku: faker.finance.iban(),
+        s3PublicUrl: 'https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/12/_103424572.jpg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196',
+        price: parseInt(faker.finance.amount()),
+        lastWornDate: faker.date.recent(),
+        isFavorite: booleans[Math.floor(Math.random() * booleans.length)],
+        timesWorn: faker.random.number(),
+        maxTimesBeforeWash: maxWashTimes[Math.floor(Math.random() * maxWashTimes.length)],
+        isClean: booleans[Math.floor(Math.random() * booleans.length)],
+        purchaseDate: faker.date.recent()
       });
+      itemInstance.setCloset(closetInstance);
+      itemInstance.setColor(colorsModels[Math.floor(Math.random() * colorsModels.length)]);
+      itemInstance.setStyle(stylesModels[Math.floor(Math.random() * stylesModels.length)])
+    }
   }
 };
 
