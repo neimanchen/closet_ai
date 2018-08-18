@@ -26,7 +26,12 @@ export class UploadItemInfo extends React.Component {
     };
 
     return (
-      <Modal trigger={<Button>Upload</Button>} style={inlineStyle.modal} >
+      <Modal
+        closeIcon
+        closeOnDimmerClick={false}
+        trigger={<Button>Upload</Button>}
+        style={inlineStyle.modal}
+      >
         <Modal.Content image>
           <Image wrapped size='large' src={this.props.imageURL} />
           <Modal.Description>
