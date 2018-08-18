@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UploadItemInfo from './UploadItemInfo.jsx';
 import Dropzone from 'react-dropzone';
+import './styles/dropzone.css'
 
 export class UploadItem extends React.Component {
   constructor(props) {

@@ -1,9 +1,19 @@
-import { UPDATE_ITEM, UPDATE_IMAGE_URL, UPDATE_BARCODE, UPLOAD_ITEM_SUCCESS, UPLOAD_ITEM_FAIL } from '../actions/addItemActions';
+import {
+  UPDATE_ITEM,
+  UPDATE_IMAGE_URL,
+  UPDATE_BARCODE,
+  UPDATE_SCANNED_STATUS,
+  UPDATE_SCANNED_RESULTS,
+  UPLOAD_ITEM_SUCCESS,
+  UPLOAD_ITEM_FAIL
+} from '../actions/addItemActions';
 
 const initialState = {
   item: null,
   imageURL: '',
-  barcode: ''
+  barcode: '',
+  status: false,
+  results: []
 }
 
 export function addItemReducer(state = initialState, action) {
@@ -19,7 +29,15 @@ export function addItemReducer(state = initialState, action) {
     case UPDATE_BARCODE:
       return Object.assign({}, state, {
         barcode: action.barcode
-      })
+      });
+    case UPDATE_SCANNED_STATUS:
+      return Object.assign({}, state, {
+        status: action.status
+      });
+    case UPDATE_SCANNED_RESULTS:
+      return Object.assign({}, state, {
+        results: action.results
+      });
     default:
       return state;
   }

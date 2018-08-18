@@ -5,6 +5,7 @@ import { updateItem, updateBarcode } from '../../actions/addItemActions';
 import { Grid, Input, Button, Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import UploadItemInfo from './UploadItemInfo.jsx';
+import Scanner from './Scanner.jsx'
 import Axios from 'axios';
 
 export class SearchBarcode extends React.Component {
@@ -25,8 +26,7 @@ export class SearchBarcode extends React.Component {
       }
     })
     .then((response) => {
-      console.log('RES', response.data)
-      this.props.actions.updateItem(response.data.item)
+      this.props.actions.updateItem(response.data.item.matched_items)
     }).catch((error) => {
       this.props.actions.updateItem('There was an error getting your barcode information' + error);
     });
@@ -47,6 +47,7 @@ export class SearchBarcode extends React.Component {
         <Grid.Column>
           <Button onClick={this.getBarcode}>Search barcode</Button>
         </Grid.Column>
+        <Scanner />
         <pre>{JSON.stringify(this.props.item, null, 2)}</pre>
       </Grid>
     )
