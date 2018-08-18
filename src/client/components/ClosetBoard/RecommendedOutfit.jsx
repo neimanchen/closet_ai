@@ -6,6 +6,7 @@ import {  Card } from 'semantic-ui-react';
 import { updateRecommendedOutfit } from '../../actions/closetBoardActions';
 import Outfit from './Outfit.jsx';
 import outfits from '../../../database/outfit_data';
+import Axios from 'axios';
 
 class RecommendedOutfit extends React.Component {
   constructor(props) {
@@ -18,8 +19,25 @@ class RecommendedOutfit extends React.Component {
   }
 
   getRecommendedOutfit() {
-    // mock data
-    this.props.actions.updateRecommendedOutfit(outfits[1]);
+    Axios.get('/recommendoutfit')
+      .then(outfit => {
+        console.log('outfit', outfit);
+        this.props.actions.updateRecommendedOutfit(outfit);
+      })
+      .catch(err => { //todo: handle err
+        console.log('recommendoutfit error', err);
+      });
+  }
+
+  getRandomOutfit() {
+    Axios.get('/randomoutfit')
+      .then(outfit => {
+        console.log('outfit', outfit);
+        this.props.actions.updateRecommendedOutfit(outfit);
+      })
+      .catch(err => { //todo: handle err
+        console.log('recommendoutfit error', err);
+      });
   }
 
   render() {

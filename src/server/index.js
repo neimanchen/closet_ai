@@ -66,6 +66,14 @@ app.post('/api/drop', upload.single('image'), (req, res, next) => {
   });
 });
 
+app.get('/recommendoutfit', (req, res) => {
+
+});
+
+app.get('/randomoutfit', (req, res) => {
+
+});
+
 // e.g. http://localhost:3000/api/locationkey?lat=30.37&lon=-97.76
 app.get('/api/locationkey', (req, res) => {
   let lat = req.query.lat;
