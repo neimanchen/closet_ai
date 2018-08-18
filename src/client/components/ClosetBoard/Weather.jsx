@@ -17,10 +17,10 @@ export class Weather extends React.Component {
     this.getWeather = this.getWeather.bind(this);
     this.getLocation = this.getLocation.bind(this);
     this.savePosition = this.savePosition.bind(this);
+    this.getLocation();
   }
 
   componentDidMount() {
-    this.getLocation();
   }
 
   getWeather() {

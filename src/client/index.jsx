@@ -30,6 +30,18 @@ const store = createStore(
   applyMiddleware(...middlewares)
 );
 
+const PrivateRoute = ({ component: Component, ...rest }) => { //todo: handle private route
+  return (
+    <Route {...rest} render={matchProps => (
+      <div className="PrivateRoute">
+        <Header />
+
+        <Component {...matchProps} />
+      </div>
+    )} />
+  )
+};
+
 const DefaultLayout = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={matchProps => (
@@ -52,13 +64,13 @@ class App extends React.Component {
         <Router>
           <Provider store={store}>
             <div className="content container">
-              {/*<DefaultLayout path="/" component={ClosetBoard} store={store} />*/}
-              <DefaultLayout path="/signup" component={Signup} store={store} />
-              <DefaultLayout path="/login" component={Login} store={store} />
-              <DefaultLayout path="/mycloset" component={MyCloset} store={store} />
-              <DefaultLayout path="/closetboard" component={ClosetBoard} store={store} />
-              <DefaultLayout path="/createoutfits" component={CreateOutfits} store={store} />
-              <DefaultLayout path="/additem" component={AddItem} store={store} />
+              <DefaultLayout exact={true} path="/" component={ClosetBoard} store={store} />
+              <DefaultLayout exact={true} path="/signup" component={Signup} store={store} />
+              <DefaultLayout exact={true} path="/login" component={Login} store={store} />
+              <PrivateRoute exact={true} path="/mycloset" component={MyCloset} store={store} />
+              <PrivateRoute exact={true} path="/closetboard" component={ClosetBoard} store={store} />
+              <PrivateRoute exact={true} path="/createoutfits" component={CreateOutfits} store={store} />
+              <PrivateRoute exact={true} path="/additem" component={AddItem} store={store} />
             </div>
           </Provider>
         </Router>

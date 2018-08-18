@@ -12,16 +12,20 @@ class RecommendedOutfit extends React.Component {
   constructor(props) {
     super(props);
     this.getRecommendedOutfit = this.getRecommendedOutfit.bind(this);
+    this.getRecommendedOutfit();
   }
   componentDidMount() {
     // get recently added outfits from db
-    this.getRecommendedOutfit();
+
   }
 
   getRecommendedOutfit() {
-    Axios.get('/recommendoutfit')
+    Axios.get('/recommendoutfit', {
+      params: {
+        weather: this.props.weather
+      }
+    })
       .then(outfit => {
-        console.log('outfit', outfit);
         this.props.actions.updateRecommendedOutfit(outfit);
       })
       .catch(err => { //todo: handle err
@@ -52,7 +56,8 @@ class RecommendedOutfit extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  recommendedOutfit: state.closetBoard.recommendedOutfit
+  recommendedOutfit: state.closetBoard.recommendedOutfit,
+  weather: state.closetBoard.weather
 });
 
 const mapDispatchToProps = dispatch => ({
