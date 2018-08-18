@@ -216,7 +216,72 @@ const dbHelpers = {
       itemInstance.setColor(colorsModels[Math.floor(Math.random() * colorsModels.length)]);
       itemInstance.setStyle(stylesModels[Math.floor(Math.random() * stylesModels.length)])
     }
-  }
+  },
+  sortAndFilterData: ((arr) => {
+    return arr.sort((a, b) =>
+    a < b ? -1: 1
+    ).filter(function(item, index, arr) {
+      return !index || item !== arr[index - 1];
+    }).map(function(item) {
+      return {key: item, value: item, text: item};
+    });
+  }),
+
+  getItems: (data, cb) => {
+    let organizedData = {};
+    organizedData.items = {};
+    organizedData.categories = [];
+    organizedData.colors = [];
+    organizedData.brands = [];
+    organizedData.rawCategories = [];
+    organizedData.rawColors = [];
+    organizedData.rawBrands = [];
+    db.query(
+      'SELECT ' +
+      'i.id, i."itemName" as name, ' +
+        'i."brandName" as brand, ' +
+        'i."s3PublicUrl" as url, ' +
+      'c.name as category, ' +
+      'colors.name as color, ' +
+      'colors.id as colorId, ' +
+        'i."styleId" as style ' +
+      'FROM items i ' +
+      'JOIN styles s ON (i."styleId" = s.id) ' +
+      'INNER JOIN categories c ON (c.id = s."categoryId") ' +
+      'JOIN colors ON (colors.id = i."colorId"); ' +
+      'SELECT DISTINCT c.name as category from items i, categories c ' +
+      'JOIN styles s ON (s."categoryId" = c.id) ' +
+      'INNER JOIN categories ON (c.id = s."categoryId"); ' +
+      'SELECT DISTINCT colors.name as color FROM items i ' +
+      'JOIN colors ON (colors.id=i."colorId");',
+      { type: db.QueryTypes.SELECT, raw: true }
+    ).then(data => {
+      data.forEach((row) => {
+        if(row.url) {
+          if (organizedData.items[row.category]) {
+            organizedData.items[row.category].push(row);
+          } else {
+            organizedData.items[row.category] = [row];
+          }
+        }
+        if (row.category) {
+          organizedData.rawCategories.push(row.category);
+        }
+        if (row.color) {
+          organizedData.rawColors.push(row.color);
+        }
+        if (row.brand) {
+          organizedData.rawBrands.push(row.brand);
+        }
+      });
+    }).then(() => {
+      organizedData.colors = dbHelpers.sortAndFilterData(organizedData.rawColors);
+      organizedData.brands = dbHelpers.sortAndFilterData(organizedData.rawBrands);
+      organizedData.categories = dbHelpers.sortAndFilterData(organizedData.rawCategories);
+    }).then(() => {
+      cb(organizedData);
+    });
+  },
 };
 
 module.exports = dbHelpers;

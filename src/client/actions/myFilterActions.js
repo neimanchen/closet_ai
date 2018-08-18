@@ -27,17 +27,31 @@ export function updateItemSeasons(seasons) {
   };
 }
 
-export function updateSelectedCategories(categories) {
+function updateSelectedCategoriesEffect(categories) {
   return {
     type: SELECTED_ITEM_CATEGORIES,
     categories
   };
+};
+
+export function updateSelectedCategories(categories) {
+  return (dispatch) => {
+    dispatch(updateSelectedCategoriesEffect(categories));
+    return Promise.resolve();
+    };
 }
 
-export function updateSelectedSeasons(seasons) {
+function updateSelectedSeasonsEffect(seasons) {
   return {
     type: SELECTED_SEASONS,
     seasons
+  };
+};
+
+export function updateSelectedSeasons(seasons) {
+  return (dispatch) => {
+    dispatch(updateSelectedSeasonsEffect(seasons));
+    return Promise.resolve();
   };
 }
 
@@ -48,12 +62,19 @@ export function updateItemColors(colors) {
   };
 }
 
-export function updateSelectedColors(colors) {
+function updateSelectedColorsEffect(colors) {
   return {
     type: SELECTED_ITEM_COLORS,
     colors
   };
-}
+};
+
+export function updateSelectedColors(colors) {
+  return (dispatch) => {
+    dispatch(updateSelectedColorsEffect(colors));
+    return Promise.resolve();
+  };
+};
 
 export function updateItemBrands(brands) {
   return {
@@ -62,9 +83,16 @@ export function updateItemBrands(brands) {
   };
 }
 
-export function updateSelectedBrands(brands) {
+function updateSelectedBrandsEffect(brands) {
   return {
     type: SELECTED_ITEM_BRANDS,
     brands
+  };
+};
+
+export function updateSelectedBrands(brands) {
+  return (dispatch) => {
+    dispatch(updateSelectedBrandsEffect(brands));
+    return Promise.resolve();
   };
 }

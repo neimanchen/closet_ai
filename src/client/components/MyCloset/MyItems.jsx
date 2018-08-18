@@ -18,29 +18,30 @@ export class MyItems extends React.Component {
     this.toggle = this.toggle.bind(this);
 }
 
-filteredView() {
-  return (
-    <Grid.Row verticalAlign="middle" centered>
-      {this.props.items.map((item) => (
-        <Grid.Column key={item.id} mobile={16} computer={5} tablet={8} widescreen={5} largeScreen={5}>
-          <Item key={item.id}
-                isModalDisplayed={this.props.isModalDisplayed}
-                modalItem={this.props.currentModalItem}
-                toggle={this.toggle}
-                item={item}
-                drag={this.props.drag}
-          />
-        </Grid.Column>
-      ))}
-    </Grid.Row>
-  )
-}
+  filteredView() {
+    return (
+      <Grid.Row verticalAlign="middle" centered>
+        {this.props.items.map((item) => (
+          <Grid.Column key={item.id} mobile={16} computer={5} tablet={8} widescreen={5} largeScreen={5}>
+            <Item key={item.id}
+                  isModalDisplayed={this.props.isModalDisplayed}
+                  modalItem={this.props.currentModalItem}
+                  toggle={this.toggle}
+                  item={item}
+                  drag={this.props.drag}
+            />
+          </Grid.Column>
+        ))}
+      </Grid.Row>
+    )
+  }
 
   toggle(item) {
     this.props.actions.updatedModalState(!this.props.isModalDisplayed, item);
   }
 
   notFilteredView() {
+    const categories = Object.keys(this.props.allItems);
     const carouselSettings = {
       dots: true,
       infinite: false,
@@ -53,16 +54,17 @@ filteredView() {
       centerPadding: "50px",
       className: 'slides',
     };
+
     return (
-      this.props.categories.map((category) => (
-        (this.props.items[category.text]) ?
-          <Grid.Row key={`category row ${category.key}`} verticalAlign="middle" centered>
+      categories.map((category) => (
+        (this.props.items[category]) ?
+          <Grid.Row key={`category row ${category}`} verticalAlign="middle" centered>
             <Grid.Column width={16}>
-              <h2>{category.text}s</h2>
+              <h2>{category}</h2>
             </Grid.Column>
             <Grid.Column width={16}>
               <Slider {...carouselSettings} touchMove={!this.props.drag} >
-                  {this.props.items[category.text].map(item  => (
+                  {this.props.items[category].map(item  => (
                     <div key={`div ${item.id}`}>
                       <Item isModalDisplayed={this.props.isModalDisplayed}
                             modalItem={this.props.currentModalItem}
@@ -97,7 +99,7 @@ MyItems.propTypes  = {
     PropTypes.object,
     PropTypes.array
   ]),
-  categories: PropTypes.array,
+  allItems: PropTypes.object,
   isModalDisplayed: PropTypes.bool.isRequired,
 };
 
@@ -108,9 +110,9 @@ const mapStateToProps = state => {
     selectedBrands: state.filter.selectedItemBrands,
     selectedCategories: state.filter.selectedItemCategories,
     isFiltered: state.closet.isFiltered,
-    categories: state.filter.itemCategories || [],
     isModalDisplayed: state.item.isModalDisplayed,
     currentModalItem: state.item.currentModalItem,
+    allItems: state.closet.allItems,
   }
 };
 

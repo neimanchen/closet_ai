@@ -25,7 +25,6 @@ export class MyClosetFilters extends React.Component {
   }
 
   componentDidMount() {
-    //MOCK DATA
     this.clearAllFilters();
   }
 
@@ -35,8 +34,9 @@ export class MyClosetFilters extends React.Component {
     this.props.actions.updateSelectedColors([]);
     this.props.actions.updateSelectedCategories([]);
     this.props.actions.updateFilteredState(false);
-    //TODO: need to make an api call to get all items
-    this.props.actions.updateSelectedItems(this.props.items);
+    this.props.actions.updateSelectedItems(this.props.allItems).then(() =>
+      this.props.updateFilterStates(this.props.allItemsArray)
+    );
   }
 
   render(){
@@ -50,7 +50,10 @@ export class MyClosetFilters extends React.Component {
               options={this.props.seasons}
               text='Filter by season'
               onChange={(e, data) => {
-                this.props.actions.updateSelectedSeasons(data.value);
+                this.props.actions.updateSelectedSeasons(data.value).then(() => {
+                    this.props.updateFilterStates()
+                  }
+                );
               }} />
           </Grid.Column>
           <Grid.Column mobile={16} computer={5} tablet={8} widescreen={3} largeScreen={3}>
@@ -60,7 +63,10 @@ export class MyClosetFilters extends React.Component {
               options={this.props.categories}
               text='Filter by category'
               onChange={(e, data) => {
-                this.props.actions.updateSelectedCategories(data.value);
+                this.props.actions.updateSelectedCategories(data.value).then(() => {
+                    this.props.updateFilterStates()
+                  }
+                );
               }}/>
           </Grid.Column>
           <Grid.Column mobile={16} computer={5} tablet={8} widescreen={3} largeScreen={3}>
@@ -70,7 +76,10 @@ export class MyClosetFilters extends React.Component {
               options={this.props.colors}
               text='Filter by color'
               onChange={(e, data) => {
-                this.props.actions.updateSelectedColors(data.value);
+                this.props.actions.updateSelectedColors(data.value).then(() => {
+                    this.props.updateFilterStates()
+                  }
+                );
               }}/>
           </Grid.Column>
           <Grid.Column mobile={16} computer={5} tablet={8} widescreen={3} largeScreen={3}>
@@ -80,7 +89,10 @@ export class MyClosetFilters extends React.Component {
               options={this.props.brands}
               text='Filter by brand'
               onChange={(e, data) => {
-                this.props.actions.updateSelectedBrands(data.value);
+                this.props.actions.updateSelectedBrands(data.value).then(() => {
+                    this.props.updateFilterStates()
+                  }
+                );
               }}/>
           </Grid.Column>
           <Grid.Column mobile={16} computer={2} tablet={2} widescreen={2} largeScreen={2} >
@@ -95,10 +107,16 @@ export class MyClosetFilters extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  allItemsArray: state.filter.allItemsArray,
   selectedSeasons: state.filter.selectedSeasons,
   selectedColors: state.filter.selectedItemColors,
   selectedBrands: state.filter.selectedItemBrands,
-  selectedCategories: state.filter.selectedItemCategories
+  selectedCategories: state.filter.selectedItemCategories,
+  seasons: state.filter.itemSeasons,
+  categories: state.filter.itemCategories,
+  colors: state.filter.itemColors,
+  brands: state.filter.itemBrands,
+  allItems: state.closet.allItems,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -115,9 +133,12 @@ const mapDispatchToProps = dispatch => ({
 
 MyClosetFilters.propTypes  = {
   brands: PropTypes.array,
+  updateFilterStates: PropTypes.func,
   colors: PropTypes.array,
   categories: PropTypes.array,
   seasons: PropTypes.array,
+  allItems: PropTypes.object,
+  allItemsArray: PropTypes.array,
   items: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array

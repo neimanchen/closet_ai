@@ -145,7 +145,7 @@ app.post('/signup', (req, res) => {
       res.status(500).send('username already exists!');
     } else {
       db.createUser(userData, (err, result) => {
-        if(err) {
+        if (err) {
           res.redirect(500, '/signup');
         } else {
           req.session.regenerate(() => {
@@ -156,6 +156,18 @@ app.post('/signup', (req, res) => {
       });
     }
   });
+});
+
+app.get('/getitems', (req, res) => {
+  let data = {
+    userId: req.query.userId, // need to update based on how the user is stored
+  };
+  db.getItems(data, (result, error) => {
+    if (error) {
+      res.status(500).end(error);
+    } else {
+      res.status(200).send(JSON.stringify(result));
+    }});
 });
 
 app.get('/cleartables', (req, res) => {

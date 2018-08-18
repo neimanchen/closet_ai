@@ -7,6 +7,7 @@ export const OUTFIT_CATEGORIES = 'OUTFIT_CATEGORIES';
 export const SELECTED_ITEMS = 'SELECTED_ITEMS';
 export const FILTERED_STATE = 'FILTERED_STATE';
 export const MODAL_DISPLAY_STATE = 'MODAL_DISPLAY_STATE';
+export const ALL_ITEMS = 'ALL_ITEMS';
 export const CURRENTLY_DISPLAYED_ITEM = 'CURRENTLY_DISPLAYED_ITEM';
 
 /*
@@ -26,10 +27,25 @@ export function updateFilteredState(isFiltered) {
   };
 }
 
-export function updateSelectedItems(items) {
+function updateSelectedItemsEffect(items) {
   return {
     type: SELECTED_ITEMS,
     items
+  };
+}
+
+export function updateSelectedItems(items) {
+  return (dispatch) => {
+    dispatch(updateSelectedItemsEffect(items));
+    return Promise.resolve();
+  };
+}
+
+export function updateAllItems(itemsObj, itemsArray) {
+  return {
+    type: ALL_ITEMS,
+    itemsObj,
+    itemsArray,
   };
 }
 

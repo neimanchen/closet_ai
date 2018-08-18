@@ -4,12 +4,15 @@ import {
   CLOSET_CATEGORIES,
   OUTFIT_CATEGORIES,
   FILTERED_STATE,
+  ALL_ITEMS,
 } from '../actions/myClosetActions';
 
 // TODO: this is temporary, need to figure out what the default state will be
 const initialState = {
   currentMenuItem: 'All Items',
-  selectedItems: [],
+  allItems: {},
+  allItemsArray: [],
+  selectedItems: {},
   closetCategories: [],
   outfitCategories: [],
   filteredState: false,
@@ -17,6 +20,11 @@ const initialState = {
 
 export function myClosetReducer(state = initialState, action) {
   switch (action.type) {
+    case ALL_ITEMS:
+      return Object.assign({}, state, {
+        allItems: action.itemsObj,
+        allItemsArray: action.itemsArray,
+      });
     case CURRENT_MENU_ITEM:
       return Object.assign({}, state, {
         currentMenuItem: action.item,
