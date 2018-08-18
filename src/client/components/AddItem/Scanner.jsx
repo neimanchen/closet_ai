@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { updateItem, updateScannedStatus, updateScannedResults } from '../../actions/addItemActions';
+import { updateImageURL, updateItem, updateScannedStatus, updateScannedResults } from '../../actions/addItemActions';
 import Axios from 'axios';
 import Quagga from 'quagga';
 
@@ -16,6 +16,7 @@ export class Scanner extends React.Component {
   onDetected(results) {
     this.props.actions.updateScannedResults(results);
     this.getBarcode();
+    Quagga.stop();
   }
 
   getBarcode() {
@@ -26,6 +27,8 @@ export class Scanner extends React.Component {
     })
     .then((response) => {
       this.props.actions.updateItem(response.data.item.matched_items)
+      console.log(response.data.item.matched_items)
+      this.props.actions.updateImageURL(response.data.item.matched_items[0].images[0])
     }).catch((error) => {
       this.props.actions.updateItem('There was an error getting your barcode information' + error);
     });
@@ -59,7 +62,6 @@ export class Scanner extends React.Component {
         Quagga.start();
       });
       Quagga.onDetected(this.onDetected)
-      Quagga.stop();
     }
   }
 
@@ -73,11 +75,12 @@ export class Scanner extends React.Component {
 const mapStateToProps = state => ({
   status: state.addItem.status,
   results: state.addItem.results,
+  imageURL: state.addItem.url,
   item: state.addItem.item
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ updateItem, updateScannedStatus, updateScannedResults }, dispatch)
+  actions: bindActionCreators({ updateImageURL, updateItem, updateScannedStatus, updateScannedResults }, dispatch)
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Scanner));
