@@ -52,7 +52,7 @@ export class CreateOutfits extends React.Component {
 
     let outfitItems = [];
     for (let id in this.props.selectedItems) {
-      outfititems.push(
+      outfitItems.push(
         <Grid.Row key={`outfititem${id}`}>
           <img
             src={this.props.selectedItems[id].url}
