@@ -51,7 +51,8 @@ const UploadForm = (props) => {
             placeholder="Size"
           />
         </div>
-      </div><div>
+      </div>
+      <div>
         <label>Season</label>
         <div>
           <Field
@@ -61,7 +62,8 @@ const UploadForm = (props) => {
             placeholder="Season"
           />
         </div>
-      </div><div>
+      </div>
+      <div>
         <label>Price</label>
         <div>
           <Field
@@ -71,7 +73,8 @@ const UploadForm = (props) => {
             placeholder="Price"
           />
         </div>
-      </div><div>
+      </div>
+      <div>
         <label>Date Purchased</label>
         <div>
           <Field
