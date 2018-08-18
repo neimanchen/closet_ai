@@ -299,7 +299,7 @@ const dbHelpers = {
       closetId: closetId
     })
       .then(outfit => {
-        for (item of items) {
+        for (let item of items) {
           OutfitItem.create({
             itemId: item.id,
             outfitId: outfit.dataValues.id

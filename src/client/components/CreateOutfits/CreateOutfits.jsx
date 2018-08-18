@@ -2,30 +2,89 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Grid, Card } from 'semantic-ui-react';
+import { Grid, Card, Button } from 'semantic-ui-react';
 import MyClosetItemsContainer from '../MyCloset/MyClosetItemsContainer.jsx';
-import { updateSelectedOutfitItems } from '../../actions/createOutfitsActions.js'
-
-import {
-  itemBrandsExample,
-  itemCategoriesExample,
-  itemColorsExample,
-  itemSeasonsExample
-} from '../MyCloset/ExampleData';
+import { updateSelectedOutfitItems } from '../../actions/createOutfitsActions.js';
+import Axios from '../../../../node_modules/axios';
 
 export class CreateOutfits extends React.Component {
   constructor(props) {
     super(props);
     this.onDrop = this.onDrop.bind(this);
+    this.saveOutfit = this.saveOutfit.bind(this);
   }
 
   onDrop(event) {
-    let id = event.dataTransfer.getData('id');
-    if (!this.props.selectedItems.includes(id)) {
-      var newSelectedItems = this.props.selectedItems.slice();
-      newSelectedItems.push(id);
+    let id = parseInt(event.dataTransfer.getData('id'));
+    if (id && !this.props.selectedItems[id]) {
+      var newSelectedItems = Object.assign({}, this.props.selectedItems);
+      var newItem;
+      this.props.allItemsArray.forEach(item => {
+        //todo keep an allItemsMap for O(1) lookups
+        if (item.id === id) {
+          newItem = item;
+        }
+      });
+      newSelectedItems[id] = { url: newItem.url };
       this.props.actions.updateSelectedOutfitItems(newSelectedItems);
     }
+  }
+
+  displayOutfit() {
+    // let coatItems = [];
+    // let topItems = [];
+    // let pantsItems = [];
+    // let otherItems = [];
+    // for (let id in this.props.selectedItems) {
+    //   let image = <img key={`outfititem${id}`} src={this.props.selectedItems[id].url} />;
+    //   let category = this.props.selectedItems[id].category;
+    //   if (category === 'Coats & Jackets') {
+    //     coatItems.push(image)
+    //   } else if (category === 'Tops') {
+    //     topItems.push(image)
+    //   } else if (category === 'Pants') {
+    //     pantsItems.push(image)
+    //   } else {
+    //     otherItems.push(image)
+    //   }
+    // }
+    // return coatItems.concat(topItems, pantsItems, otherItems);
+
+    let outfitItems = [];
+    for (let id in this.props.selectedItems) {
+      outfititems.push(
+        <Grid.Row key={`outfititem${id}`}>
+          <img
+            src={this.props.selectedItems[id].url}
+            style={{ maxHeight: '200px' }}
+          />
+        </Grid.Row>
+      );
+    }
+    return outfitItems;
+  }
+
+  saveOutfit() {
+    console.log('save to db:', {
+      items: Object.keys(this.props.selectedItems).map(id => ({
+        id: parseInt(id)
+      })),
+      outfitProperties: {
+        name: 'testoutfit',
+        isFavorite: false,
+        s3PublicUrl: ''
+      }
+    });
+    Axios.post('/api/saveoutfit', {
+      items: Object.keys(this.props.selectedItems).map(id => ({
+        id: parseInt(id)
+      })),
+      outfitProperties: {
+        name: 'testoutfit',
+        isFavorite: false,
+        s3PublicUrl: ''
+      }
+    });
   }
 
   render() {
@@ -35,15 +94,16 @@ export class CreateOutfits extends React.Component {
           <Grid.Row>
             <Grid.Column width={6} stretched>
               <Card onDragOver={e => e.preventDefault()} onDrop={this.onDrop}>
-                {
-                  this.props.selectedItems.length === 0
-                    ? 'Drag items here!'
-                    : this.props.selectedItems.map((id, i) => (
-                      <div key={"createOutfitItem" + i}>
-                        {`Grab item with id ${id} and show here`}
-                      </div>
-                    ))
-                }
+                <Card.Content>
+                  <Grid padded centered>
+                    {this.props.selectedItems.length === 0
+                      ? 'Drag items here!'
+                      : this.displayOutfit()}
+                  </Grid>
+                </Card.Content>
+                <Card.Content extra>
+                  <Button onClick={this.saveOutfit}>Save Outfit</Button>
+                </Card.Content>
               </Card>
             </Grid.Column>
             <Grid.Column width={10}>
@@ -58,7 +118,8 @@ export class CreateOutfits extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    selectedItems: state.createOutfits.selectedItems
+    selectedItems: state.createOutfits.selectedItems,
+    allItemsArray: state.closet.allItemsArray
   };
 };
 

@@ -14,9 +14,12 @@ const S3_API_VER = '2006-03-01';
 const db = require('../database');
 const bcrypt = require('bcrypt-nodejs');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 const homePath = __dirname + '../../../dist';
 app.use(express.static(homePath));
 app.use('/signup', express.static(homePath));
@@ -64,6 +67,11 @@ app.post('/api/drop', upload.single('image'), (req, res, next) => {
       next();
     }
   });
+});
+
+app.post('/api/saveOutfit', (req, res) => {
+  db.addOutfit(req.body.items, req.body.outfitProperties, 1);
+  res.sendStatus(200);
 });
 
 app.get('/recommendoutfit', (req, res) => {

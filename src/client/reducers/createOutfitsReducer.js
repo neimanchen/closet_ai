@@ -1,7 +1,7 @@
 import { UPDATE_SELECTED_OUTFIT_ITEMS } from '../actions/createOutfitsActions.js';
 
 const initialState = {
-  selectedItems: []
+  selectedItems: {}
 };
 
 export function createOutfitsReducer(state = initialState, action) {
