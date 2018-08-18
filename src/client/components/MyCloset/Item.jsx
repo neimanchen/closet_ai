@@ -4,12 +4,20 @@ import ItemModal from './ItemModal.jsx';
 
 const Item = (props) => (
   <ItemModal trigger={
-    <Card centered raised={true} onClick={() => props.toggle(props.item)} draggable={props.drag} onDragStart={e => e.dataTransfer.setData('id', props.item.id)}>
+    <Card
+      centered
+      raised={true}
+      onClick={() => props.toggle(props.item)}
+      draggable={props.drag}
+      onDragStart={e => e.dataTransfer.setData('id', props.item.id)}
+    >
       <Image src={props.item.url} draggable="false" centered/>
       <Card.Content>
         <Card.Header>{props.item.name}</Card.Header>
         <Card.Meta>{props.item.category}</Card.Meta>
-        <Card.Description>{props.item.brand}</Card.Description>
+        <Card.Meta>{props.item.brand}</Card.Meta>
+        <Card.Meta>{props.item.color}</Card.Meta>
+        <Card.Description>{props.item.description}</Card.Description>
       </Card.Content>
       <Card.Content extra>
       </Card.Content>
