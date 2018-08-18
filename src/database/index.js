@@ -88,7 +88,11 @@ const Calendar = db.define('calendar', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   date: { type: Sequelize.DATE }
 });
-
+const OutfitItem = db.define('outfitsItems', {
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+  itemId: { type: Sequelize.INTEGER },
+  outfitId: { type: Sequelize.INTEGER }
+});
 User.hasOne(Closet);
 Closet.belongsTo(User);
 Closet.hasMany(Item);
@@ -101,8 +105,8 @@ Category.hasMany(Style);
 Style.belongsTo(Category);
 Outfit.hasMany(Calendar);
 Calendar.belongsTo(Outfit);
-Item.belongsToMany(Outfit, { through: 'OutfitItem' });
-Outfit.belongsToMany(Item, { through: 'OutfitItem' });
+Item.belongsToMany(Outfit, { through: OutfitItem });
+Outfit.belongsToMany(Item, { through: OutfitItem });
 Style.belongsToMany(Season, {through: 'StyleSeason' });
 Season.belongsToMany(Style, { through: 'StyleSeason' });
 
@@ -187,6 +191,11 @@ const dbHelpers = {
     Category.findAll().then(categories => categories.forEach(category => category.destroy()));
   },
   genFakeData: async () => {
+    // const outfitProperties = {
+    //   name: 'outfit',
+    //   isFavorite: true,
+    //   s3PublicUrl: 'https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/11/_101901771.jpg?crop=pad&pad_color=FFF&format=jpeg&w=60&h=90'
+    // };
     let stylesModels = await Style.findAll();
     let colorsModels = await Color.findAll();
     let booleans = [true, false];
@@ -194,7 +203,7 @@ const dbHelpers = {
     let userInstance = await User.create(fakeData.user);
     let closetInstance = await Closet.create(fakeData.closet);
     await closetInstance.setUser(userInstance);
-
+    // dbHelpers.addOutfit(fakeData.items, outfitProperties, 1);
     // change the for condition to adjust count of fake items created.
     for (let i = 0; i < 100; i++ ) {
       let itemInstance = await Item.create({
@@ -282,6 +291,22 @@ const dbHelpers = {
       cb(organizedData);
     });
   },
+  addOutfit: (items, outfitProperties, closetId) => {
+    Outfit.create({
+      name: outfitProperties.name,
+      isFavorite: outfitProperties.isFavorite,
+      s3PublicUrl: outfitProperties.s3PublicUrl,
+      closetId: closetId
+    })
+      .then(outfit => {
+        for (item of items) {
+          OutfitItem.create({
+            itemId: item.id,
+            outfitId: outfit.dataValues.id
+          })
+        }
+    });
+  }
 };
 
 module.exports = dbHelpers;
