@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Card } from 'semantic-ui-react';
+import { Card, Dimmer, Loader, Segment } from 'semantic-ui-react';
 import { updateUnwornItems } from '../../actions/closetBoardActions';
 import Item from './Item.jsx';
 
@@ -14,10 +14,17 @@ class UnwornItems extends React.Component {
   render() {
     return (
       <Card.Group itemsPerRow={2}>
-        {this.props.unwornItems.map((item) => (
+        {
+          this.props.unwornItems ? this.props.unwornItems.map((item) => (
             <Item key={item.id} name={item.name} image={item.url}/>
-          )
-        )}
+          ))
+          :
+          <Segment>
+            <Dimmer active>
+              <Loader>Thinking</Loader>
+            </Dimmer>
+          </Segment>
+        }
       </Card.Group>
     );
   }

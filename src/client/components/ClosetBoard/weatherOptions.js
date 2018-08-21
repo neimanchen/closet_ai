@@ -49,6 +49,6 @@ const weatherOptions = {
   46: 'snow',
   47: 'snow',
   default: 'sunny'
-}
+};
 
 export default weatherOptions;

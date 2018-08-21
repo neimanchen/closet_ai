@@ -17,10 +17,10 @@ export class Weather extends React.Component {
     this.getWeather = this.getWeather.bind(this);
     this.getLocation = this.getLocation.bind(this);
     this.savePosition = this.savePosition.bind(this);
-    this.getLocation();
   }
 
   componentDidMount() {
+    this.getLocation();
   }
 
   getWeather() {
@@ -38,8 +38,8 @@ export class Weather extends React.Component {
           text: forecast[0].text
         });
       }).catch((err) => {
-        this.props.actions.updateWeather('There was an error getting the weather - please try again later: ' + err);
-      });
+      this.props.actions.updateWeather('There was an error getting the weather - please try again later: ' + err);
+    });
   }
 
   getLocation() {

@@ -93,6 +93,12 @@ const OutfitItem = db.define('outfitsItems', {
   itemId: { type: Sequelize.INTEGER },
   outfitId: { type: Sequelize.INTEGER }
 });
+const StyleSeason = db.define('stylesSeasons', {
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+  styleId: { type: Sequelize.INTEGER },
+  seasonId: { type: Sequelize.INTEGER }
+});
+
 User.hasOne(Closet);
 Closet.belongsTo(User);
 Closet.hasMany(Item);
@@ -107,8 +113,8 @@ Outfit.hasMany(Calendar);
 Calendar.belongsTo(Outfit);
 Item.belongsToMany(Outfit, { through: OutfitItem });
 Outfit.belongsToMany(Item, { through: OutfitItem });
-Style.belongsToMany(Season, {through: 'StyleSeason' });
-Season.belongsToMany(Style, { through: 'StyleSeason' });
+Style.belongsToMany(Season, {through: StyleSeason });
+Season.belongsToMany(Style, { through: StyleSeason });
 
 /* promise chain is required to ensure tables are created in the correct sequence so that associations can be set up
  properly. tables should be sync'd in the following order: category, user, closet, item, calendar, outfit, style,
@@ -118,12 +124,14 @@ db.sync()
   .then(() => Category.sync())
   .then(() => User.sync())
   .then(() => Closet.sync())
-  .then(()=> Color.sync())
+  .then(() => Color.sync())
   .then(() => Item.sync())
   .then(() => Outfit.sync())
   .then(() => Calendar.sync())
   .then(() => Style.sync())
-  .then(() => Season.sync());
+  .then(() => Season.sync())
+  .then(() => OutfitItem.sync())
+  .then(() => StyleSeason.sync());
 
 const dbHelpers = {
   seedColors: async () => {
@@ -168,12 +176,20 @@ const dbHelpers = {
       }
     }
   },
+  seedStylesSeasons: async () => { //join table
+   for (let styleSeason of seed.stylesSeasons) {
+     let style = await Style.findOne({ where: { name: styleSeason.style } });
+     let season = await Season.findOne({ where: { name: styleSeason.season } });
+     await style.addSeason(season);
+   }
+  },
   createDB: async () => {
     await db.sync();
     await dbHelpers.seedCategories();
     await dbHelpers.seedSeasons();
     await dbHelpers.seedColors();
     await dbHelpers.seedStyles();
+    await dbHelpers.seedStylesSeasons();
     await dbHelpers.genFakeData();
   },
   // If used, invoke createDB to seed db

@@ -2,7 +2,6 @@ const port = process.env.PORT || 3000;
 const express = require('express');
 const path = require('path');
 const Axios = require('axios');
-const ACCUWEATHER_KEY = require('./config.js').keys.accuweatherKey;
 const AWS = require('aws-sdk');
 const accessKeyId = require('./config.js').keys.accessKeyId;
 const secretAccessKeyId = require('./config.js').keys.secretAccessKeyId;
@@ -75,7 +74,8 @@ app.post('/api/saveOutfit', (req, res) => {
 });
 
 app.get('/recommendoutfit', (req, res) => {
-
+  // let weather = req.body.weather;
+  // res.send(weather);
 });
 
 app.get('/randomoutfit', (req, res) => {

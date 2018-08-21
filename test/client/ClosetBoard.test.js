@@ -39,13 +39,12 @@ describe('ClosetBoard', () => {
     );
   });
 
-
   it('renders Weather component', () => {
     expect(wrapper.find('#weather').exists()).to.equal(true);
   });
 
   it('renders RecommendedOutfit component', () => {
-    expect(wrapper.find('#recommendedOutfit').exists()).to.equal(true);
+    expect(wrapper.find('#recommendedOutfits').exists()).to.equal(true);
   });
 
   it('renders RecentlyAddedOutfits component', () => {

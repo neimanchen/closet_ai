@@ -4,7 +4,7 @@
 
 export const UPDATE_WEATHER = 'UPDATE_WEATHER';
 export const UPDATE_RECENTLY_ADDED_OUTFITS = 'UPDATE_RECENTLY_ADDED_OUTFITS';
-export const UPDATE_RECOMMENDED_OUTFIT = 'UPDATE_RECOMMENDED_OUTFIT';
+export const UPDATE_RECOMMENDED_OUTFITS = 'UPDATE_RECOMMENDED_OUTFITS';
 export const UPDATE_UNWORN_ITEMS = 'UPDATE_UNWORN_ITEMS';
 export const WEATHER = 'WEATHER';
 export const LOCATION = 'LOCATION';
@@ -26,9 +26,9 @@ export function updateRecentlyAddedOutfits(outfits) {
   };
 }
 
-export function updateRecommendedOutfit(outfit) {
+export function updateRecommendedOutfits(outfit) {
   return {
-    type: UPDATE_RECOMMENDED_OUTFIT,
+    type: UPDATE_RECOMMENDED_OUTFITS,
     outfit
   };
 }

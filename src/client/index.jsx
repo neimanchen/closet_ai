@@ -5,6 +5,7 @@ import reducers from './reducers/index.jsx';
 import ClosetBoard from './components/ClosetBoard/ClosetBoard.jsx';
 import MyCloset from './components/MyCloset/MyCloset.jsx';
 import CreateOutfits from './components/CreateOutfits/CreateOutfits.jsx';
+import RecommendedOutfits from './components/ClosetBoard/RecommendedOutfits.jsx';
 import Signup from './components/Signup.jsx';
 import Login from './components/Login.jsx';
 import Header from './components/Header.jsx';
@@ -69,6 +70,7 @@ class App extends React.Component {
               <DefaultLayout exact={true} path="/login" component={Login} store={store} />
               <PrivateRoute exact={true} path="/mycloset" component={MyCloset} store={store} />
               <PrivateRoute exact={true} path="/closetboard" component={ClosetBoard} store={store} />
+              <PrivateRoute exact={true} path="/recommendedoutfits" component={RecommendedOutfits} store={store} />
               <PrivateRoute exact={true} path="/createoutfits" component={CreateOutfits} store={store} />
               <PrivateRoute exact={true} path="/additem" component={AddItem} store={store} />
             </div>

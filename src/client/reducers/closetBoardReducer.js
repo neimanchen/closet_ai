@@ -1,7 +1,7 @@
 import {
   UPDATE_RECENTLY_ADDED_OUTFITS,
   UPDATE_WEATHER,
-  UPDATE_RECOMMENDED_OUTFIT,
+  UPDATE_RECOMMENDED_OUTFITS,
   UPDATE_UNWORN_ITEMS
 } from '../actions/closetBoardActions';
 
@@ -9,7 +9,10 @@ import { WEATHER, LOCATION } from '../actions/closetBoardActions';
 
 const initialState = {
   weather: null,
-  location: { error: 'Waiting for location...' }
+  location: { error: 'Waiting for location...' },
+  recommendedOutfits: null,
+  recentlyAddedOutfits: null,
+  unwornItems: null
 };
 
 export function closetBoardReducer(state = initialState, action) {
@@ -22,9 +25,9 @@ export function closetBoardReducer(state = initialState, action) {
       return Object.assign({}, state, {
         recentlyAddedOutfits: action.recentlyAddedOutfits
       });
-    case UPDATE_RECOMMENDED_OUTFIT:
+    case UPDATE_RECOMMENDED_OUTFITS:
       return Object.assign({}, state, {
-        recommendedOutfit: action.recommendedOutfit
+        recommendedOutfits: action.recommendedOutfits
       });
     case UPDATE_UNWORN_ITEMS:
       return Object.assign({}, state, {

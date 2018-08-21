@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Image } from 'semantic-ui-react';
 
 const Item = (props) => (
-  <Card centered raised={true}>
+  <Card  fluid={true} centered={true} raised={true}>
     <Image src={props.image} />
     <Card.Content>
       <Card.Header>{props.name}</Card.Header>
