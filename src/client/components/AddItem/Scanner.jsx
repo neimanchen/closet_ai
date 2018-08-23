@@ -27,7 +27,6 @@ export class Scanner extends React.Component {
     })
     .then((response) => {
       this.props.actions.updateItem(response.data.item.matched_items)
-      console.log(response.data.item.matched_items)
       this.props.actions.updateImageURL(response.data.item.matched_items[0].images[0])
     }).catch((error) => {
       this.props.actions.updateItem('There was an error getting your barcode information' + error);
@@ -67,7 +66,15 @@ export class Scanner extends React.Component {
 
   render() {
     return (
-      <div id="interactive" className="viewport"/>
+      <div
+        id="interactive"
+        className="viewport"
+        style={{
+            margin: '0px auto',
+            postition: 'relative',
+            left: '100px'
+        }}
+      />
     )
   }
 }
