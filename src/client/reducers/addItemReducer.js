@@ -4,6 +4,7 @@ import {
   UPDATE_BARCODE,
   UPDATE_SCANNED_STATUS,
   UPDATE_SCANNED_RESULTS,
+  UPDATE_STYLES,
   UPLOAD_ITEM_SUCCESS,
   UPLOAD_ITEM_FAIL
 } from '../actions/addItemActions';
@@ -13,7 +14,8 @@ const initialState = {
   imageURL: '',
   barcode: '',
   status: false,
-  results: []
+  results: [],
+  styles: []
 }
 
 export function addItemReducer(state = initialState, action) {
@@ -38,6 +40,10 @@ export function addItemReducer(state = initialState, action) {
       return Object.assign({}, state, {
         results: action.results
       });
+    case UPDATE_STYLES:
+      return Object.assign({}, state, {
+        styles: action.styles
+      })
     default:
       return state;
   }
