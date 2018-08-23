@@ -5,7 +5,8 @@ export const UPDATE_ITEM = 'UPDATE_ITEM';
 export const UPDATE_IMAGE_URL = 'UPDATE_IMAGE_URL';
 export const UPDATE_BARCODE = 'UPDATE_BARCODE';
 export const UPDATE_SCANNED_STATUS = 'UPDATE_SCANNED_STATUS';
-export const UPDATE_SCANNED_RESULTS = 'UPDATE_SCANNED_RESULTS'
+export const UPDATE_SCANNED_RESULTS = 'UPDATE_SCANNED_RESULTS';
+export const UPDATE_STYLES = 'UPDATE_STYLES';
 export const UPLOAD_ITEM_SUCCESS = 'UPLOAD_ITEM_SUCCESS';
 export const UPLOAD_ITEM_FAIL = 'UPLOAD_ITEM_FAIL';
 
@@ -44,6 +45,13 @@ export function updateScannedResults(results) {
   return {
     type: UPDATE_SCANNED_RESULTS,
     results
+  };
+}
+
+export function updateStyles (styles) {
+  return {
+    type: UPDATE_STYLES,
+    styles,
   };
 }
 
