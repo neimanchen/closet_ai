@@ -322,6 +322,26 @@ const dbHelpers = {
           })
         }
     });
+  },
+  getStyles: (cb) => {
+    // set options raw: true
+    Style.findAll({
+      attributes: ['id', 'name', 'categoryId']
+    })
+    .then((styles) => {
+      cb(styles);
+    })
+  },
+  addItem: (item) => {
+    Item.create({
+      brandName: item.brand,
+      name: item.itemname,
+      description: item.description,
+      size: item.size,
+      s3PublicUrl: item.url,
+      price: item.price,
+      purchaseDate: item.date
+    })
   }
 };
 
