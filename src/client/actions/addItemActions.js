@@ -68,7 +68,7 @@ export function updateColors(colors) {
 export function uploadSuccess(data) {
   return {
     type: UPLOAD_ITEM_SUCCESS,
-    data,
+    data
   };
 }
 
