@@ -7,8 +7,10 @@ export const UPDATE_BARCODE = 'UPDATE_BARCODE';
 export const UPDATE_SCANNED_STATUS = 'UPDATE_SCANNED_STATUS';
 export const UPDATE_SCANNED_RESULTS = 'UPDATE_SCANNED_RESULTS';
 export const UPDATE_STYLES = 'UPDATE_STYLES';
+export const UPDATE_COLORS = 'UPDATE_COLORS';
 export const UPLOAD_ITEM_SUCCESS = 'UPLOAD_ITEM_SUCCESS';
 export const UPLOAD_ITEM_FAIL = 'UPLOAD_ITEM_FAIL';
+export const UPDATE_MODAL_STATE = 'UPDATE_MODAL_STATE';
 
 /*
  * action creators
@@ -48,11 +50,18 @@ export function updateScannedResults(results) {
   };
 }
 
-export function updateStyles (styles) {
+export function updateStyles(styles) {
   return {
     type: UPDATE_STYLES,
     styles,
   };
+}
+
+export function updateColors(colors) {
+  return {
+    type: UPDATE_COLORS,
+    colors
+  }
 }
 
 export function uploadSuccess({data}) {
@@ -67,4 +76,11 @@ export function uploadFail(error) {
     type: UPLOAD_ITEM_FAIL,
     error
   };
+}
+
+export function updateModalState(modalState) {
+  return {
+    type: UPDATE_MODAL_STATE,
+    modalState
+  }
 }
