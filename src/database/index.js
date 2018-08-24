@@ -324,7 +324,6 @@ const dbHelpers = {
     });
   },
   getStyles: (cb) => {
-    // set options raw: true
     Style.findAll({
       attributes: ['id', 'name', 'categoryId']
     })
@@ -332,15 +331,30 @@ const dbHelpers = {
       cb(styles);
     })
   },
-  addItem: (item) => {
+  getColors: (cb) => {
+    Color.findAll({
+      attributes: ['id', 'name']
+    })
+    .then((colors) => {
+      cb(colors);
+    })
+  },
+  addItem: (item, closetId) => {
     Item.create({
       brandName: item.brand,
-      name: item.itemname,
+      itemName: item.name,
       description: item.description,
       size: item.size,
       s3PublicUrl: item.url,
       price: item.price,
-      purchaseDate: item.date
+      isFavorite: false,
+      timesWorn: 0,
+      maxTimesBeforeWash: 1,
+      isClean: false,
+      purchaseDate: item.date,
+      closetId: closetId,
+      colorId: item.color,
+      styleId: item.category
     })
   }
 };
