@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
-import { Form, Button, Dropdown } from 'semantic-ui-react';
+import { Form, Button } from 'semantic-ui-react';
 
 const UploadForm = (props) => {
   const { pristine, submitting } = props;
@@ -72,7 +72,7 @@ const UploadForm = (props) => {
             <option />
             {props.styles.map((style) => {
               return(
-                <option key={style.id}>{style.name}</option>
+                <option key={style.id} value={style.id}>{style.name}</option>
               )
             })}
           </Field>
@@ -81,12 +81,14 @@ const UploadForm = (props) => {
       <div>
         <label>Color</label>
         <div>
-          <Field
-            name="color"
-            component="input"
-            type="text"
-            placeholder="Color"
-          />
+          <Field name="color" component="select">
+            <option />
+            {props.colors.map((color) => {
+              return(
+                <option key={color.id} value={color.id}>{color.name}</option>
+              )
+            })}
+          </Field>
         </div>
       </div>
       <div>
@@ -101,7 +103,13 @@ const UploadForm = (props) => {
         </div>
       </div>
       <div>
-        <Button type="submit" disabled={pristine || submitting}>Submit</Button>
+        <Button
+          type="submit"
+          disabled={pristine || submitting}
+          onClick={props.close}
+        >
+          Submit
+        </Button>
       </div>
     </Form>
   )
