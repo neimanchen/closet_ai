@@ -30,7 +30,7 @@ export class AddUrl extends React.Component {
           </div>
         </Grid.Column>
         <Grid.Column>
-          <UploadItemInfo styles={this.props.styles}/>
+          <UploadItemInfo />
         </Grid.Column>
       </Grid>
     )
