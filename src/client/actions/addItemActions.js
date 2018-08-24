@@ -11,6 +11,7 @@ export const UPDATE_COLORS = 'UPDATE_COLORS';
 export const UPLOAD_ITEM_SUCCESS = 'UPLOAD_ITEM_SUCCESS';
 export const UPLOAD_ITEM_FAIL = 'UPLOAD_ITEM_FAIL';
 export const UPDATE_MODAL_STATE = 'UPDATE_MODAL_STATE';
+export const CATCH_ERROR = 'CATCH_ERROR';
 
 /*
  * action creators
@@ -64,7 +65,7 @@ export function updateColors(colors) {
   }
 }
 
-export function uploadSuccess({data}) {
+export function uploadSuccess(data) {
   return {
     type: UPLOAD_ITEM_SUCCESS,
     data,
@@ -82,5 +83,12 @@ export function updateModalState(modalState) {
   return {
     type: UPDATE_MODAL_STATE,
     modalState
+  }
+}
+
+export function catchError(error) {
+  return {
+    type: CATCH_ERROR,
+    error
   }
 }
