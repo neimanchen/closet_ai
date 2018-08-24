@@ -3,7 +3,7 @@ import { Grid, Modal, Button, Header, Image, Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateImageURL, updateModalState } from '../../actions/addItemActions';
+import { updateImageURL, updateModalState, catchError } from '../../actions/addItemActions';
 import UploadForm from './UploadForm.jsx';
 import { getFormValues } from 'redux-form';
 import Axios from 'axios';
@@ -41,7 +41,7 @@ export class UploadItemInfo extends React.Component {
       }
     })
     .catch((err) => {
-      console.log(err)
+      this.props.actions.catchError(err);
     })
   }
 
@@ -81,11 +81,12 @@ const mapStateToProps = state => ({
   styles: state.addItem.styles,
   colors: state.addItem.colors,
   open: state.addItem.modalState,
+  error: state.addItem.error,
   formStates: getFormValues('Upload')(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ updateImageURL, updateModalState }, dispatch)
+  actions: bindActionCreators({ updateImageURL, updateModalState, catchError }, dispatch)
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UploadItemInfo));
