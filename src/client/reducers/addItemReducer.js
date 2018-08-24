@@ -8,7 +8,8 @@ import {
   UPDATE_COLORS,
   UPLOAD_ITEM_SUCCESS,
   UPLOAD_ITEM_FAIL,
-  UPDATE_MODAL_STATE
+  UPDATE_MODAL_STATE,
+  CATCH_ERROR
 } from '../actions/addItemActions';
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
   open: false,
   results: [],
   styles: [],
-  colors: []
+  colors: [],
+  error: null
 }
 
 export function addItemReducer(state = initialState, action) {
@@ -55,6 +57,10 @@ export function addItemReducer(state = initialState, action) {
     case UPDATE_MODAL_STATE:
       return Object.assign({}, state, {
         open: action.modalState
+      })
+    case CATCH_ERROR:
+      return Object.assign({}, state, {
+        error: action.error
       })
     default:
       return state;
