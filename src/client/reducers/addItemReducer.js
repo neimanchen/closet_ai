@@ -4,8 +4,12 @@ import {
   UPDATE_BARCODE,
   UPDATE_SCANNED_STATUS,
   UPDATE_SCANNED_RESULTS,
+  UPDATE_STYLES,
+  UPDATE_COLORS,
   UPLOAD_ITEM_SUCCESS,
-  UPLOAD_ITEM_FAIL
+  UPLOAD_ITEM_FAIL,
+  UPDATE_MODAL_STATE,
+  CATCH_ERROR
 } from '../actions/addItemActions';
 
 const initialState = {
@@ -13,7 +17,11 @@ const initialState = {
   imageURL: '',
   barcode: '',
   status: false,
-  results: []
+  open: false,
+  results: [],
+  styles: [],
+  colors: [],
+  error: null
 }
 
 export function addItemReducer(state = initialState, action) {
@@ -38,6 +46,22 @@ export function addItemReducer(state = initialState, action) {
       return Object.assign({}, state, {
         results: action.results
       });
+    case UPDATE_STYLES:
+      return Object.assign({}, state, {
+        styles: action.styles
+      })
+    case UPDATE_COLORS:
+      return Object.assign({}, state, {
+        colors: action.colors
+      })
+    case UPDATE_MODAL_STATE:
+      return Object.assign({}, state, {
+        open: action.modalState
+      })
+    case CATCH_ERROR:
+      return Object.assign({}, state, {
+        error: action.error
+      })
     default:
       return state;
   }

@@ -322,6 +322,40 @@ const dbHelpers = {
           })
         }
     });
+  },
+  getStyles: (cb) => {
+    Style.findAll({
+      attributes: ['id', 'name', 'categoryId']
+    })
+    .then((styles) => {
+      cb(styles);
+    })
+  },
+  getColors: (cb) => {
+    Color.findAll({
+      attributes: ['id', 'name']
+    })
+    .then((colors) => {
+      cb(colors);
+    })
+  },
+  addItem: (item, closetId) => {
+    Item.create({
+      brandName: item.brand,
+      itemName: item.name,
+      description: item.description,
+      size: item.size,
+      s3PublicUrl: item.url,
+      price: item.price,
+      isFavorite: false,
+      timesWorn: 0,
+      maxTimesBeforeWash: 1,
+      isClean: false,
+      purchaseDate: item.date,
+      closetId: closetId,
+      colorId: item.color,
+      styleId: item.category
+    })
   }
 };
 

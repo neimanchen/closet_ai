@@ -82,6 +82,22 @@ app.get('/randomoutfit', (req, res) => {
 
 });
 
+app.post('/uploaditem', (req, res) => {
+  db.addItem(req.body.item, 1);
+})
+
+app.get('/getstyles', (req, res) => {
+  db.getStyles((styles) => {
+    res.status(200).send(styles);
+  })
+});
+
+app.get('/getcolors', (req, res) => {
+  db.getColors((colors) => {
+    res.status(200).send(colors);
+  })
+})
+
 // e.g. http://localhost:3000/api/locationkey?lat=30.37&lon=-97.76
 app.get('/api/locationkey', (req, res) => {
   let lat = req.query.lat;
