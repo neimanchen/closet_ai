@@ -24,8 +24,6 @@ export class MyItems extends React.Component {
         {this.props.items.map((item) => (
           <Grid.Column key={item.id} mobile={16} computer={5} tablet={8} widescreen={5} largeScreen={5}>
             <Item key={item.id}
-                  isModalDisplayed={this.props.isModalDisplayed}
-                  modalItem={this.props.currentModalItem}
                   toggle={this.toggle}
                   item={item}
                   drag={this.props.drag}
@@ -37,7 +35,8 @@ export class MyItems extends React.Component {
   }
 
   toggle(item) {
-    this.props.actions.updatedModalState(!this.props.isModalDisplayed, item);
+    const copyItem = {...item};
+    this.props.actions.updatedModalState(!this.props.isModalDisplayed, copyItem);
   }
 
   notFilteredView() {
@@ -67,7 +66,6 @@ export class MyItems extends React.Component {
                   {this.props.items[category].map(item  => (
                     <div key={`div ${item.id}`}>
                       <Item isModalDisplayed={this.props.isModalDisplayed}
-                            modalItem={this.props.currentModalItem}
                             toggle={this.toggle}
                             item={item}
                             drag={this.props.drag}

@@ -261,24 +261,35 @@ const dbHelpers = {
     organizedData.rawCategories = [];
     organizedData.rawColors = [];
     organizedData.rawBrands = [];
+    organizedData.allColors = [];
+    organizedData.allStyles = [];
+    organizedData.allCategories = [];
     db.query(
       'SELECT ' +
       'i.id, i."itemName" as name, ' +
-        'i."brandName" as brand, ' +
-        'i."s3PublicUrl" as url, ' +
+      'i."brandName" as brand, ' +
+      'i."s3PublicUrl" as url, ' +
+      'i.price, ' +
+      'i.description, ' +
+      'i."purchaseDate" as purchaseDate, ' +
       'c.name as category, ' +
+      'c.id as categoryId, ' +
       'colors.name as color, ' +
       'colors.id as colorId, ' +
-        'i."styleId" as style ' +
+      'i."styleId" as styleId, ' +
+      'styles.name as style ' +
       'FROM items i ' +
-      'JOIN styles s ON (i."styleId" = s.id) ' +
-      'INNER JOIN categories c ON (c.id = s."categoryId") ' +
+      'INNER JOIN styles ON (i."styleId" = styles.id) ' +
+      'INNER JOIN categories c ON (c.id = styles."categoryId") ' +
       'JOIN colors ON (colors.id = i."colorId"); ' +
       'SELECT DISTINCT c.name as category from items i, categories c ' +
       'JOIN styles s ON (s."categoryId" = c.id) ' +
       'INNER JOIN categories ON (c.id = s."categoryId"); ' +
       'SELECT DISTINCT colors.name as color FROM items i ' +
-      'JOIN colors ON (colors.id=i."colorId");',
+      'JOIN colors ON (colors.id=i."colorId"); ' +
+      'SELECT name as "allColorsName", id as "allColorsId" FROM colors; ' +
+      'SELECT name as "allStylesName", id as "allStylesId" FROM styles; ' +
+      'SELECT name as "allCategoriesName", id as "allCategoriesId" FROM categories;',
       { type: db.QueryTypes.SELECT, raw: true }
     ).then(data => {
       data.forEach((row) => {
@@ -297,6 +308,15 @@ const dbHelpers = {
         }
         if (row.brand) {
           organizedData.rawBrands.push(row.brand);
+        }
+        if (row.allColorsName) {
+          organizedData.allColors.push({key: row.allColorsId, value: row.allColorsId, text: row.allColorsName});
+        }
+        if (row.allStylesName) {
+          organizedData.allStyles.push({key: row.allStylesId, value : row.allStylesId, text: row.allStylesName});
+        }
+        if (row.allCategoriesName) {
+          organizedData.allCategories.push({key: row.allCategoriesId, value: row.allCategoriesId, text: row.allCategoriesName});
         }
       });
     }).then(() => {
@@ -356,6 +376,29 @@ const dbHelpers = {
       colorId: item.color,
       styleId: item.category
     })
+  },
+  editItem(item, cb) {
+    db.query(
+      'UPDATE items ' +
+      'SET "itemName"=\'' + item.name + '\', ' +
+      '"brandName"=\'' + item.brand + '\', ' +
+      '"colorId"=\'' + item.colorid + '\', ' +
+      '"styleId"=\'' + item.styleid + '\', ' +
+      'description=\'' + item.description + '\', ' +
+      '"purchaseDate"=\'' + item.purchasedate + '\', ' +
+      'price=\'' + item.price + '\' ' +
+      'WHERE id=\'' + item.id + '\';'
+    ).then(() => {
+        this.getItems(null, cb);
+    });
+  },
+  deleteItem(item, cb) {
+    db.query(
+      'DELETE from items ' +
+      'WHERE id=\'' + item.id + '\';'
+    ).then(() => {
+      this.getItems(null, cb);
+    });
   }
 };
 

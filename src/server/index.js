@@ -194,6 +194,29 @@ app.get('/getitems', (req, res) => {
     }});
 });
 
+app.post('/edititem', (req, res) => {
+  let data = {
+    userId: req.query.userId, // need to update based on how the user is stored
+  };
+  db.editItem(req.body, (result, error) => {
+    if (error) {
+      res.status(500).end(error);
+    } else {
+      res.status(200).send(JSON.stringify(result));
+    }});
+});
+
+app.post('/removeitem', (req, res) => {
+  // need auth
+  db.deleteItem(req.body, (result, error) => {
+    if(error) {
+      res.status(500).end(error);
+    } else {
+      res.status(200).send(JSON.stringify(result));
+    }
+  })
+})
+
 app.get('/cleartables', (req, res) => {
   db.clearTables();
   res.status(200).end('Tables clear, but still exist')

@@ -5,6 +5,7 @@ import {
   OUTFIT_CATEGORIES,
   FILTERED_STATE,
   ALL_ITEMS,
+  ALL_DROPDOWN_INFO,
 } from '../actions/myClosetActions';
 
 // TODO: this is temporary, need to figure out what the default state will be
@@ -45,6 +46,12 @@ export function myClosetReducer(state = initialState, action) {
     case FILTERED_STATE:
       return Object.assign({}, state, {
         filteredState: action.isFiltered
+      });
+    case ALL_DROPDOWN_INFO:
+      return Object.assign({}, state, {
+        allColors: action.colors,
+        allCategories: action.categories,
+        allStyles: action.styles,
       });
     default:
       return state;

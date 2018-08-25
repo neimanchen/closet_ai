@@ -9,6 +9,7 @@ export const FILTERED_STATE = 'FILTERED_STATE';
 export const MODAL_DISPLAY_STATE = 'MODAL_DISPLAY_STATE';
 export const ALL_ITEMS = 'ALL_ITEMS';
 export const CURRENTLY_DISPLAYED_ITEM = 'CURRENTLY_DISPLAYED_ITEM';
+export const ALL_DROPDOWN_INFO = "ALL_DROPDOWN_INFO";
 
 /*
  * action creators
@@ -68,5 +69,14 @@ export function updatedModalState(isModalDisplayed, item) {
     type: MODAL_DISPLAY_STATE,
     isModalDisplayed,
     item
+  };
+}
+
+export function updateDropdownInfo(colors, categories, styles) {
+  return {
+    type: ALL_DROPDOWN_INFO,
+    colors,
+    categories,
+    styles
   };
 }

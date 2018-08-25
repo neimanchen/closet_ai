@@ -1,29 +1,38 @@
 import React from 'react';
 import { Card, Image } from 'semantic-ui-react';
-import ItemModal from './ItemModal.jsx';
+
+
+const styles = {
+  marginTop: '0.5em',
+  marginBottom: '0.5em',
+};
 
 const Item = (props) => (
-  <ItemModal trigger={
+  <div>
     <Card
+      style={styles}
       centered
       raised={true}
       onClick={() => props.toggle(props.item)}
       draggable={props.drag}
       onDragStart={e => e.dataTransfer.setData('id', props.item.id)}
-    >
+      width='fluid'
+      >
       <Image src={props.item.url} draggable="false" centered/>
       <Card.Content>
-        <Card.Header>{props.item.name}</Card.Header>
-        <Card.Meta>{props.item.category}</Card.Meta>
-        <Card.Meta>{props.item.brand}</Card.Meta>
-        <Card.Meta>{props.item.color}</Card.Meta>
-        <Card.Description>{props.item.description}</Card.Description>
+      <Card.Header><b>Name: </b>{
+        (props.item.name.length > 20 ) ?
+          props.item.name.substring(0, 20) + '...' : props.item.name }
+      </Card.Header>
+        <Card.Meta><b>Category: </b>{props.item.category}</Card.Meta>
+      <Card.Meta><b>Brand: </b>{props.item.brand}</Card.Meta>
+      <Card.Meta><b>Color: </b>{props.item.color}</Card.Meta>
+      <Card.Description><b>Description: </b>{props.item.description}</Card.Description>
       </Card.Content>
       <Card.Content extra>
       </Card.Content>
     </Card>
-  }
- item={props.modalItem} />
+  </div>
 );
 
 export default Item;

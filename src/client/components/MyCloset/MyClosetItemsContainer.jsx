@@ -7,6 +7,7 @@ import MyClosetFilters from './MyClosetFilters.jsx';
 import { bindActionCreators } from 'redux';
 import Axios from 'axios';
 import { itemSeasonsExample } from './ExampleData';
+import ItemModal from './ItemModal.jsx';
 import {
   updateItemBrands,
   updateItemCategories,
@@ -18,6 +19,7 @@ import {
   updateSelectedItems,
   updateFilteredState,
   updateAllItems,
+  updateDropdownInfo,
 } from '../../actions/myClosetActions';
 
 
@@ -50,8 +52,13 @@ export class MyClosetItemsContainer extends React.Component {
       this.props.actions.updateItemBrands(data.response.data.brands);
       this.props.actions.updateAllItems(data.response.data.items, data.itemsArray);
       this.props.actions.updateSelectedItems(data.response.data.items);
+      this.props.actions.updateDropdownInfo(
+        data.response.data.allColors,
+        data.response.data.allCategories,
+        data.response.data.allStyles
+      );
     }).catch((error) => {
-      this.props.actions.updateAllItems([]);
+      this.props.actions.updateAllItems({});
       this.props.actions.updateSelectedItems([]);
     });
   }
@@ -167,6 +174,7 @@ export class MyClosetItemsContainer extends React.Component {
   render() {
     return (
       <div>
+        <ItemModal toggle={this.toggle} />
         <MyClosetFilters
           items={this.props.selectedItems}
           updateFilterStates={this.updateFilterStates}
@@ -198,6 +206,7 @@ const mapDispatchToProps = dispatch => ({
     updateItemCategories,
     updateItemSeasons,
     updateFilteredState,
+    updateDropdownInfo,
   }, dispatch)
 });
 

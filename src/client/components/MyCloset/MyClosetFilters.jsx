@@ -10,7 +10,7 @@ import {
   updateSelectedColors,
   updateSelectedCategories,
   updateSelectedBrands,
-} from '../../actions/myFilterActions'
+} from '../../actions/myFilterActions';
 
 import {
   updateFilteredState,
@@ -54,7 +54,8 @@ export class MyClosetFilters extends React.Component {
                     this.props.updateFilterStates()
                   }
                 );
-              }} />
+              }}
+            />
           </Grid.Column>
           <Grid.Column mobile={16} computer={5} tablet={8} widescreen={3} largeScreen={3}>
             <DropdownSearchSelection
@@ -67,7 +68,8 @@ export class MyClosetFilters extends React.Component {
                     this.props.updateFilterStates()
                   }
                 );
-              }}/>
+              }}
+            />
           </Grid.Column>
           <Grid.Column mobile={16} computer={5} tablet={8} widescreen={3} largeScreen={3}>
             <DropdownSearchSelection
@@ -80,7 +82,8 @@ export class MyClosetFilters extends React.Component {
                     this.props.updateFilterStates()
                   }
                 );
-              }}/>
+              }}
+            />
           </Grid.Column>
           <Grid.Column mobile={16} computer={5} tablet={8} widescreen={3} largeScreen={3}>
             <DropdownSearchSelection
@@ -93,7 +96,8 @@ export class MyClosetFilters extends React.Component {
                     this.props.updateFilterStates()
                   }
                 );
-              }}/>
+              }}
+            />
           </Grid.Column>
           <Grid.Column mobile={16} computer={2} tablet={2} widescreen={2} largeScreen={2} >
             <Button basic color='red' onClick={this.clearAllFilters}>
@@ -141,7 +145,7 @@ MyClosetFilters.propTypes  = {
   allItemsArray: PropTypes.array,
   items: PropTypes.oneOfType([
     PropTypes.object,
-    PropTypes.array
+    PropTypes.array,
   ]),
   selectedSeasons: PropTypes.array,
   selectedColors:PropTypes.array,
