@@ -196,6 +196,19 @@ app.get('/getitems', (req, res) => {
     }});
 });
 
+
+app.get('/getoutfits', (req, res) => {
+  let data = {
+    userId: req.query.userId, // need to update based on how the user is stored
+  };
+  db.getOutfits(data, (result, error) => {
+    if (error) {
+      res.status(500).end(error);
+    } else {
+      res.status(200).send(JSON.stringify(result));
+    }});
+});
+
 app.post('/edititem', (req, res) => {
   let data = {
     userId: req.query.userId, // need to update based on how the user is stored
@@ -216,8 +229,8 @@ app.post('/removeitem', (req, res) => {
     } else {
       res.status(200).send(JSON.stringify(result));
     }
-  })
-})
+  });
+});
 
 app.get('/cleartables', (req, res) => {
   db.clearTables();

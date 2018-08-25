@@ -324,6 +324,25 @@ const dbHelpers = {
       cb(organizedData);
     });
   },
+
+  //return array of outfits
+  getOutfits: (data, cb) => {
+
+    let organizedData;
+    db.query(
+      'SELECT ' +
+      'outfits.id, name, "isFavorite", "s3PublicUrl", ARRAY_AGG("itemId") as itemIds ' +
+      'FROM outfits ' +
+      'LEFT JOIN "outfitsItems" ' +
+      'ON outfits.id = "outfitId" ' + 
+      'GROUP BY outfits.id ' +
+      'ORDER BY outfits.id ',
+      { type: db.QueryTypes.SELECT, raw: true }
+    ).then(data => {
+      cb(data);
+    });
+  },
+
   addOutfit: (items, outfitProperties, closetId) => {
     Outfit.create({
       name: outfitProperties.name,
@@ -363,7 +382,7 @@ const dbHelpers = {
     outfit.bottom = await Item.findOne({
       where: { styleId: bottomsStyles[Math.floor(Math.random() * bottomsStyles.length)].id}, raw: true });
     cb(outfit);
-  }
+  },
   getStyles: (cb) => {
     Style.findAll({
       attributes: ['id', 'name', 'categoryId']

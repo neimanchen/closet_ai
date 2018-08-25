@@ -59,7 +59,7 @@ const client = {
     publicPath: '/'
   },
   module: moduleObj,
- plugins: [htmlWebpackPlugin, new ExtractTextPlugin("styles.css")]
+  plugins: [htmlWebpackPlugin, new ExtractTextPlugin("styles.css")]
 };
 
 const server = {

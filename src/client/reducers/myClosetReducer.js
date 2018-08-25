@@ -5,7 +5,8 @@ import {
   OUTFIT_CATEGORIES,
   FILTERED_STATE,
   ALL_ITEMS,
-  ALL_DROPDOWN_INFO,
+  ALL_OUTFITS,
+  ALL_DROPDOWN_INFO
 } from '../actions/myClosetActions';
 
 // TODO: this is temporary, need to figure out what the default state will be
@@ -17,6 +18,7 @@ const initialState = {
   closetCategories: [],
   outfitCategories: [],
   filteredState: false,
+  allOutfits: []
 };
 
 export function myClosetReducer(state = initialState, action) {
@@ -38,7 +40,6 @@ export function myClosetReducer(state = initialState, action) {
       return Object.assign({}, state, {
         closetCategories: action.categories
       });
-
     case OUTFIT_CATEGORIES:
       return Object.assign({}, state, {
         outfitCategories: action.categories
@@ -47,6 +48,10 @@ export function myClosetReducer(state = initialState, action) {
       return Object.assign({}, state, {
         filteredState: action.isFiltered
       });
+    case ALL_OUTFITS:
+      return Object.assign({}, state, {
+        allOutfits: action.outfits
+      }); 
     case ALL_DROPDOWN_INFO:
       return Object.assign({}, state, {
         allColors: action.colors,

@@ -11,6 +11,7 @@ import {
   } from '../../actions/myClosetActions';
 import MyClosetNavBar from './MyClosetNavBar.jsx';
 import MyClosetItemsContainer from './MyClosetItemsContainer.jsx';
+import OutfitsContainer from '../common/OutfitsContainer/OutfitsContainer.jsx';
 
 
 export class MyCloset extends React.Component {
@@ -49,7 +50,9 @@ export class MyCloset extends React.Component {
               />
             </Grid.Column>
             <Grid.Column mobile={16} computer={16} tablet={16} widescreen={13} largeScreen={13}>
-              <MyClosetItemsContainer/>
+              {this.props.currentMenuItem.includes('Outfit') 
+                ? <OutfitsContainer /> 
+                : <MyClosetItemsContainer/>}
             </Grid.Column>
           </Grid.Row>
         </Grid>

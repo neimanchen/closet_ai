@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Grid, Card, Button } from 'semantic-ui-react';
 import MyClosetItemsContainer from '../MyCloset/MyClosetItemsContainer.jsx';
 import { updateSelectedOutfitItems } from '../../actions/createOutfitsActions.js';
-import Axios from '../../../../node_modules/axios';
+import Axios from 'axios';
 
 export class CreateOutfits extends React.Component {
   constructor(props) {
