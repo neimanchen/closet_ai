@@ -1,25 +1,47 @@
- let outfits = [
-  {
-    'id': 0,
-    'name': 'outfit1',
-    'is_favorite': true,
-    's3_public_url': 'https://d2w95v3gkaford.cloudfront.net/outfits/32a92e92-c53a-4ecd-bff0-a13be65e1c7f.png',
-    'closet_id': 0
-  },
-  {
-    'id': 1,
-    'name': 'outfit2',
-    'is_favorite': false,
-    's3_public_url': 'https://www.obermeyer.com/sites/default/files/styles/product_selection/gs1/outfit/photos/foundation%20strmcld%20outfit.png?itok=g5OgznOA',
-    'closet_id': 0
-  },
-  {
-    'id': 2,
-    'name': 'outfit3',
-    'is_favorite': true,
-    's3_public_url': 'https://cdn.shopify.com/s/files/1/0282/1024/products/cactus_birthday_leo_1024x1024.png?v=1522877152',
-    'closet_id': 0
-  },
+ let outfits = [{
+   bottom: {
+     brandName: "Eichmann LLC",
+     closetId: 1,
+     colorId: 4,
+     createdAt: "2018-08-24T03:11:31.537Z",
+     description: "Incredible",
+     id: 9,
+     isClean: true,
+     isFavorite: false,
+     itemName: "Rustic Cotton Car",
+     lastWornDate: "2018-08-23",
+     maxTimesBeforeWash: 1,
+     price: 548,
+     purchaseDate: "2018-08-22",
+     s3PublicUrl: "https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/12/_103424572.jpg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196",
+     size: "M",
+     sku: "LI829806571B9575A28V6",
+     styleId: 24,
+     timesWorn: 28316,
+     updatedAt: "2018-08-24T03:11:31.541Z"
+   },
+   top: {
+     brandName: "Eichmann LLC",
+     closetId: 1,
+     colorId: 4,
+     createdAt: "2018-08-24T03:11:31.537Z",
+     description: "Incredible",
+     id: 9,
+     isClean: true,
+     isFavorite: false,
+     itemName: "Rustic Cotton Car",
+     lastWornDate: "2018-08-23",
+     maxTimesBeforeWash: 1,
+     price: 548,
+     purchaseDate: "2018-08-22",
+     s3PublicUrl: "https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/12/_103424572.jpg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196",
+     size: "M",
+     sku: "LI829806571B9575A28V6",
+     styleId: 24,
+     timesWorn: 28316,
+     updatedAt: "2018-08-24T03:11:31.541Z"
+  }
+ }
 ];
 
 module.exports = outfits;

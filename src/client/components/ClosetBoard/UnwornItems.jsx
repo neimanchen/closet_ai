@@ -15,13 +15,13 @@ class UnwornItems extends React.Component {
     return (
       <Card.Group itemsPerRow={2}>
         {
-          this.props.unwornItems ? this.props.unwornItems.map((item) => (
+          this.props.unwornItems.length !== 0 ? this.props.unwornItems.map((item) => (
             <Item key={item.id} name={item.name} image={item.url}/>
           ))
           :
           <Segment>
-            <Dimmer active>
-              <Loader>Thinking</Loader>
+            <Dimmer active inverted>
+              <Loader inverted>Thinking</Loader>
             </Dimmer>
           </Segment>
         }

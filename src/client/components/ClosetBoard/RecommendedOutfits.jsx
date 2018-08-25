@@ -7,44 +7,57 @@ import { updateRecommendedOutfits } from '../../actions/closetBoardActions';
 import Outfit from './Outfit.jsx';
 import Axios from 'axios';
 
-class RecommendedOutfits extends React.Component {
+export class RecommendedOutfits extends React.Component {
   constructor(props) {
     super(props);
     this.getRecommendedOutfits = this.getRecommendedOutfits.bind(this);
   }
-  componentDidUpdate() {
-    if (this.props.weather) {
+
+  componentDidUpdate(prevProps) {
+    if (this.props.weather !== prevProps.weather) {
       this.getRecommendedOutfits();
     }
   }
 
   componentDidMount() {
-    if (this.props.weather) {
+    if (Object.keys(this.props.weather).length === 0) {
       this.getRecommendedOutfits();
     }
   }
 
   getRecommendedOutfits() {
-    Axios.get('/recommendoutfits', {
+    let season;
+    let temperatureHigh = parseInt(this.props.weather.high);
+
+    if (temperatureHigh < 51) {
+      season = 'Winter';
+    } else if (temperatureHigh > 51 && temperatureHigh < 62) {
+      season = 'Fall';
+    } else if (temperatureHigh > 62 && temperatureHigh < 73) {
+      season = 'Spring';
+    } else {
+      season = 'Summer';
+    }
+    Axios.get('/recommendoutfit', {
       params: {
-        weather: this.props.weather
+        season: season
       }
     })
-      .then(outfit => {
-        this.props.actions.updateRecommendedOutfits(outfit);
+      .then(response => {
+        this.props.actions.updateRecommendedOutfits(response.data);
       })
-      .catch(err => { //todo: handle err
-        console.log('recommendoutfits error', err);
+      .catch(error => {
+        this.getRandomOutfits();
       });
   }
 
   getRandomOutfits() {
     Axios.get('/randomoutfit')
-      .then(outfit => {
-        this.props.actions.updateRecommendedOutfits(outfit);
+      .then(response => {
+        this.props.actions.updateRecommendedOutfits(response.data);
       })
-      .catch(err => { //todo: handle err
-        console.log('recommendoutfit error', err);
+      .catch(err => { //fallback is to get a random outfit
+        this.props.actions.updateRecommendedOutfits('Recommendation Engine reported an error');
       });
   }
 
@@ -53,17 +66,17 @@ class RecommendedOutfits extends React.Component {
       <Card.Group itemsPerRow={3}>
         <Card fluid={true} centered={true}>
           {
-            this.props.recommendedOutfits ?
-              <Outfit
-                name={this.props.recommendedOutfits.name}
-                img={this.props.recommendedOutfits.s3PublicUrl}
-              />
-              :
+            !this.props.recommendedOutfits ?
               <Segment>
-                <Dimmer active>
-                  <Loader>Thinking</Loader>
+                <Dimmer active inverted>
+                  <Loader inverted>Thinking</Loader>
                 </Dimmer>
               </Segment>
+              :
+              <Outfit
+                top={this.props.recommendedOutfits.top}
+                bottom={this.props.recommendedOutfits.bottom}
+              />
           }
         </Card>
       </Card.Group>
@@ -73,8 +86,7 @@ class RecommendedOutfits extends React.Component {
 
 const mapStateToProps = state => ({
   recommendedOutfits: state.closetBoard.recommendedOutfits,
-  weather: state.closetBoard.weather,
-  location: state.closetBoard.location
+  weather: state.closetBoard.weather
 });
 
 const mapDispatchToProps = dispatch => ({

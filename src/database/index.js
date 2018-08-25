@@ -178,9 +178,12 @@ const dbHelpers = {
   },
   seedStylesSeasons: async () => { //join table
    for (let styleSeason of seed.stylesSeasons) {
+     console.log('styleseason', styleSeason);
      let style = await Style.findOne({ where: { name: styleSeason.style } });
-     let season = await Season.findOne({ where: { name: styleSeason.season } });
-     await style.addSeason(season);
+     for (let i = 0; i < styleSeason.season.length; i++) {
+       let seasonInstance = await Season.findOne({ where: { name: styleSeason.season[i] } });
+       await style.addSeason(seasonInstance);
+     }
    }
   },
   createDB: async () => {
@@ -207,11 +210,6 @@ const dbHelpers = {
     Category.findAll().then(categories => categories.forEach(category => category.destroy()));
   },
   genFakeData: async () => {
-    // const outfitProperties = {
-    //   name: 'outfit',
-    //   isFavorite: true,
-    //   s3PublicUrl: 'https://n.nordstrommedia.com/ImageGallery/store/product/Zoom/11/_101901771.jpg?crop=pad&pad_color=FFF&format=jpeg&w=60&h=90'
-    // };
     let stylesModels = await Style.findAll();
     let colorsModels = await Color.findAll();
     let booleans = [true, false];
@@ -219,7 +217,7 @@ const dbHelpers = {
     let userInstance = await User.create(fakeData.user);
     let closetInstance = await Closet.create(fakeData.closet);
     await closetInstance.setUser(userInstance);
-    // dbHelpers.addOutfit(fakeData.items, outfitProperties, 1);
+
     // change the for condition to adjust count of fake items created.
     for (let i = 0; i < 100; i++ ) {
       let itemInstance = await Item.create({
@@ -251,7 +249,6 @@ const dbHelpers = {
       return {key: item, value: item, text: item};
     });
   }),
-
   getItems: (data, cb) => {
     let organizedData = {};
     organizedData.items = {};
@@ -343,6 +340,30 @@ const dbHelpers = {
         }
     });
   },
+  makeOutfitBySeason: async (season, cb) => {
+    let outfit = {};
+    let seasonInstance = await Season.findOne({
+      attributes: ['id'],
+      where: { name: season }
+    });
+    let topsCategoryId = await Category.findOne({
+      attributes: ['id'],
+      where: { name: 'Tops' },
+      raw: true
+    });
+    let bottomsCategoryId = await Category.findOne({
+      attributes: ['id'],
+      where: { $or: [{ name: 'Shorts' }, { name: 'Leggings' }, { name: 'Skirts' }]},
+      raw: true
+    });
+    let topsStyles = await seasonInstance.getStyles({ attributes: ['id', 'name'], where: { categoryId: topsCategoryId.id }, raw: true});
+    let bottomsStyles = await seasonInstance.getStyles({ attributes: ['id', 'name'], where: { categoryId: bottomsCategoryId.id }, raw: true});
+    outfit.top = await Item.findOne({
+      where: { styleId: topsStyles[Math.floor(Math.random() * topsStyles.length)].id}, raw: true });
+    outfit.bottom = await Item.findOne({
+      where: { styleId: bottomsStyles[Math.floor(Math.random() * bottomsStyles.length)].id}, raw: true });
+    cb(outfit);
+  }
   getStyles: (cb) => {
     Style.findAll({
       attributes: ['id', 'name', 'categoryId']

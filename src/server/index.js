@@ -74,8 +74,10 @@ app.post('/api/saveOutfit', (req, res) => {
 });
 
 app.get('/recommendoutfit', (req, res) => {
-  // let weather = req.body.weather;
-  // res.send(weather);
+  let season = req.query.season;
+  db.makeOutfitBySeason(season, (outfit) => {
+    res.status(200).send(JSON.stringify(outfit));
+  });
 });
 
 app.get('/randomoutfit', (req, res) => {

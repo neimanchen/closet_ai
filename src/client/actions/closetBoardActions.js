@@ -26,10 +26,10 @@ export function updateRecentlyAddedOutfits(outfits) {
   };
 }
 
-export function updateRecommendedOutfits(outfit) {
+export function updateRecommendedOutfits(recommendedOutfits) {
   return {
     type: UPDATE_RECOMMENDED_OUTFITS,
-    outfit
+    recommendedOutfits
   };
 }
 
@@ -37,7 +37,7 @@ export function updateUnwornItems(unwornItems) {
   return {
     type: UPDATE_UNWORN_ITEMS,
     unwornItems
-  }
+  };
 }
 
 export function updateLocation(location) {

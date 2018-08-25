@@ -8,11 +8,10 @@ import {
 import { WEATHER, LOCATION } from '../actions/closetBoardActions';
 
 const initialState = {
-  weather: null,
+  weather: {},
   location: { error: 'Waiting for location...' },
-  recommendedOutfits: null,
-  recentlyAddedOutfits: null,
-  unwornItems: null
+  recentlyAddedOutfits: [],
+  unwornItems: []
 };
 
 export function closetBoardReducer(state = initialState, action) {

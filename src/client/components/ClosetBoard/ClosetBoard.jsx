@@ -1,12 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Header, Grid } from 'semantic-ui-react';
 import Weather from './Weather.jsx';
 import RecentlyAddedOutfits from './RecentlyAddedOutfits.jsx';
 import RecommendedOutfits from './RecommendedOutfits.jsx';
-import UnwornItems from './UnwornItems.jsx'
+import UnwornItems from './UnwornItems.jsx';
 
 export class ClosetBoard extends React.Component {
   constructor(props) {
@@ -43,12 +41,4 @@ export class ClosetBoard extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  weather: state.closetBoard.weather,
-  recommendedOutfits: state.closetBoard.recommendedOutfits
-});
-
-const mapDispatchToProps = dispatch => ({
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ClosetBoard));
+export default withRouter(ClosetBoard);

@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Card } from 'semantic-ui-react';
 import { updateRecentlyAddedOutfits } from '../../actions/closetBoardActions';
-import Outfit from './Outfit.jsx';
-import outfits from '../../../database/outfit_data';
+import outfits from '../../../database/outfit_data.js';
 
 class RecentlyAddedOutfits extends React.Component {
   constructor(props) {
@@ -13,22 +12,20 @@ class RecentlyAddedOutfits extends React.Component {
     this.getRecentlyAddedOutfits = this.getRecentlyAddedOutfits.bind(this);
   }
   componentDidMount() {
-    // get recently added outfits from db
     this.getRecentlyAddedOutfits();
   }
 
   getRecentlyAddedOutfits() {
-    // mock data
     this.props.actions.updateRecentlyAddedOutfits(outfits);
   }
 
   render() {
     return (
       <Card.Group itemsPerRow={3}>
-        {outfits.map((outfit) => (
-            <Outfit key={outfit.id} name={outfit.name} image={outfit.s3_public_url}/>
-          )
-        )}
+        {/*{outfits.map((outfit) => (*/}
+            {/*/!*<Outfit key={outfit.top.id} top={outfit.top}/>*!/*/}
+          {/*)*/}
+        {/*)}*/}
       </Card.Group>
     );
   }

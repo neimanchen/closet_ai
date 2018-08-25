@@ -27,9 +27,9 @@ export class Weather extends React.Component {
     const query = `select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D%22(${this.props.location.latitude}%2C${this.props.location.longitude})%22)`;
     Axios.get(queryURL + query + queryFormat)
       .then((response) => {
-        var weatherData = response.data.query.results.channel;
-        var location = weatherData.location
-        var forecast = weatherData.item.forecast;
+        let weatherData = response.data.query.results.channel;
+        let location = weatherData.location;
+        let forecast = weatherData.item.forecast;
         this.props.actions.updateWeather({
           weatherOption: weatherOptions[forecast[0].code] || weatherOptions.default,
           low: forecast[0].low,

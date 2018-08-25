@@ -2,10 +2,10 @@ module.exports = {
   colors: ['White', 'Black', 'Gray', 'Yellow', 'Red', 'Blue', 'Green', 'Brown', 'Pink', 'Orange', 'Purple',
     'Beige', 'Off-white', 'Metallic'],
   seasons: {
-    Winter: [{value: -100, inclusive: false}, {value: 60}],
-    Spring: [{value: 61, inclusive: false}, {value: 75}],
-    Summer: [{value: 76, inclusive: false}, {value: 140}],
-    Fall: [{value: 61, inclusive: false}, {value: 75}]
+    Winter: [{value: -100, inclusive: false}, {value: 51}],
+    Spring: [{value: 62, inclusive: false}, {value: 72}],
+    Summer: [{value: 73, inclusive: false}, {value: 140}],
+    Fall: [{value: 52, inclusive: false}, {value: 61}]
   },
   categories: {
     Both: ['Pants', 'Tops', 'Shoes', 'Accessories', 'Sleepwear & Lounge', 'Coats & Jackets', 'Shorts', 'Sweaters', 'Suits & Separates'],
