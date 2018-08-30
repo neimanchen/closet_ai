@@ -21,7 +21,9 @@ export class UploadItemInfo extends React.Component {
   }
 
   closeModal() {
+    console.log('CLOSED')
     this.props.actions.updateModalState(false);
+
   }
 
   submitForm() {
@@ -55,6 +57,8 @@ export class UploadItemInfo extends React.Component {
       }
     };
 
+    var modalBool = this.getState()
+
     return (
       <div>
       {
@@ -63,10 +67,9 @@ export class UploadItemInfo extends React.Component {
         <Modal
           closeIcon
           closeOnDimmerClick={false}
-          open={this.props.modalOpen}
-          trigger={<Button>Upload</Button>}
+          trigger={<Button onClick={this.showModal}>Upload</Button>}
           onClose={this.closeModal}
-          open={this.props.modalOpen}
+          open={this.getState()}
           style={inlineStyle.modal}
         >
           <Modal.Content image>
@@ -74,7 +77,6 @@ export class UploadItemInfo extends React.Component {
             <Modal.Description>
               <UploadForm onSubmit={this.submitForm} styles={this.props.styles} colors={this.props.colors} close={this.closeModal}/>
             </Modal.Description>
-            <Button onClick={this.closeModal}>Close</Button>
           </Modal.Content>
         </Modal>
         </div>
