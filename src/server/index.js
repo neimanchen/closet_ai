@@ -19,7 +19,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-const homePath = __dirname + '../../../dist';
+const homePath = path.resolve(__dirname, '../../dist');
 app.use(express.static(homePath));
 app.use('/signup', express.static(homePath));
 app.use((res, req, next) => {
@@ -68,8 +68,14 @@ app.post('/api/drop', upload.single('image'), (req, res, next) => {
   });
 });
 
-app.post('/api/saveOutfit', (req, res) => {
+app.post('/api/outfit', (req, res) => {
   db.addOutfit(req.body.items, req.body.outfitProperties, 1);
+  res.sendStatus(200);
+});
+
+app.delete('/api/outfit', (req, res) => {
+  console.log(req.query)
+  db.removeOutfit(req.query.id, 1);
   res.sendStatus(200);
 });
 
@@ -207,7 +213,7 @@ app.get('/createdb', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname + '../../../dist/index.html'));
+  res.sendFile(path.resolve(__dirname, '../../dist/index.html'));
 });
 
 app.listen(port, () => {

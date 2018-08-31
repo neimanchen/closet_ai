@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Card } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import Axios from 'axios';
 import Outfit from './Outfit.jsx';
 import { updateAllOutfits } from '../../../actions/myClosetActions';
@@ -15,8 +15,16 @@ class OutfitsContainer extends React.Component {
   }
 
   render() {
-    return (
+    return this.props.allOutfits.length === 0 ? (
       <div>
+        <br />
+        <h2>
+          You don't have any outfits. Go to "Create Outfits" to make some!
+        </h2>
+      </div>
+    ) : (
+      <div>
+        <br />
         {this.props.allOutfits.map(outfit => (
           <Outfit key={'outfit' + outfit.id} {...outfit} />
         ))}
