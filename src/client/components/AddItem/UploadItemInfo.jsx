@@ -22,7 +22,6 @@ export class UploadItemInfo extends React.Component {
 
   closeModal() {
     this.props.actions.updateModalState(false);
-
   }
 
   submitForm() {
