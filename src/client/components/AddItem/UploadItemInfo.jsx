@@ -21,7 +21,6 @@ export class UploadItemInfo extends React.Component {
   }
 
   closeModal() {
-    console.log('CLOSED')
     this.props.actions.updateModalState(false);
 
   }
