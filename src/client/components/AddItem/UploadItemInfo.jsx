@@ -57,8 +57,6 @@ export class UploadItemInfo extends React.Component {
       }
     };
 
-    var modalBool = this.getState()
-
     return (
       <div>
       {
